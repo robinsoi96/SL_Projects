@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 #Import random module to generate random number
 import random
 

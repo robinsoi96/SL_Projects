@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 answer = 9
 
 max_guess = 3

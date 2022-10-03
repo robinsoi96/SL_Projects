@@ -1,0 +1,9 @@
+{
+	"Name": "Robin",
+	"Info":{
+		"Height": "168cm",
+		"Weight": "72kg",
+		"Hobbies": ["Singing","Fitness"]
+	},
+	"Travel":["Taiwan","Thailand"]
+}

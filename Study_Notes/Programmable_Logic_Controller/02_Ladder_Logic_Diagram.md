@@ -7,14 +7,14 @@
 3) The horizontal line is called rung
 4) The vertical line is called rail
 
-<br/>
+<br>
 
 ## PLC Ladder Logic Symbols
 
 Below are the most commonly used symbols: 
 
-<img src="images/Common_PLC_Ladder_Logic_Symbols.png" alt="Common PLC Ladder Logic Symbols" />
+<img src="images/Common_PLC_Ladder_Logic_Symbols.png" alt="Common PLC Ladder Logic Symbols">
 
-<br/>
+<br>
 
 Apart from the most commonly used LLD symbols above, there are more symbols where you can study and understand via Internet.

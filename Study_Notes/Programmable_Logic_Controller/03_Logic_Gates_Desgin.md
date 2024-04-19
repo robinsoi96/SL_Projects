@@ -2,7 +2,7 @@
 
 Below are the designs of logic gates using PLC ladder diagram.
 
-<br/>
+<br>
 
 ## OR Gate
 
@@ -13,9 +13,9 @@ Below are the designs of logic gates using PLC ladder diagram.
 |  1  |  0  |  1  |
 |  1  |  1  |  1  |
 
-<img src="images/OR_gate.png" alt="OR Gate Design using PLC Ladder Diagram" />
+<img src="images/OR_gate.png" alt="OR Gate Design using PLC Ladder Diagram">
 
-<br/>
+<br>
 
 ## AND Gate
 
@@ -26,9 +26,9 @@ Below are the designs of logic gates using PLC ladder diagram.
 |  1  |  0  |  0  |
 |  1  |  1  |  1  |
 
-<img src="images/AND_gate.png" alt="AND Gate Design using PLC Ladder Diagram" />
+<img src="images/AND_gate.png" alt="AND Gate Design using PLC Ladder Diagram">
 
-<br/>
+<br>
 
 ## NOT Gate
 
@@ -37,9 +37,9 @@ Below are the designs of logic gates using PLC ladder diagram.
 |  0  |  1  |
 |  1  |  0  |
 
-<img src="images/NOT_gate.png" alt="NOT Gate Design using PLC Ladder Diagram" />
+<img src="images/NOT_gate.png" alt="NOT Gate Design using PLC Ladder Diagram">
 
-<br/>
+<br>
 
 ## NOR Gate
 
@@ -50,9 +50,9 @@ Below are the designs of logic gates using PLC ladder diagram.
 |  1  |  0  |  0  |
 |  1  |  1  |  0  |
 
-<img src="images/NOR_gate.png" alt="NOR Gate Design using PLC Ladder Diagram" />
+<img src="images/NOR_gate.png" alt="NOR Gate Design using PLC Ladder Diagram">
 
-<br/>
+<br>
 
 ## NAND Gate
 
@@ -63,9 +63,9 @@ Below are the designs of logic gates using PLC ladder diagram.
 |  1  |  0  |  1  |
 |  1  |  1  |  0  |
 
-<img src="images/NAND_gate.png" alt="NAND Gate Design using PLC Ladder Diagram" />
+<img src="images/NAND_gate.png" alt="NAND Gate Design using PLC Ladder Diagram">
 
-<br/>
+<br>
 
 ## XOR Gate
 
@@ -76,9 +76,9 @@ Below are the designs of logic gates using PLC ladder diagram.
 |  1  |  0  |  1  |
 |  1  |  1  |  0  |
 
-<img src="images/XOR_gate.png" alt="XOR Gate Design using PLC Ladder Diagram" />
+<img src="images/XOR_gate.png" alt="XOR Gate Design using PLC Ladder Diagram">
 
-<br/>
+<br>
 
 ## XNOR Gate
 
@@ -89,6 +89,6 @@ Below are the designs of logic gates using PLC ladder diagram.
 |  1  |  0  |  0  |
 |  1  |  1  |  1  |
 
-<img src="images/XNOR_gate.png" alt="XNOR Gate Design using PLC Ladder Diagram" />
+<img src="images/XNOR_gate.png" alt="XNOR Gate Design using PLC Ladder Diagram">
 
-<br/>
+<br>

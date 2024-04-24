@@ -7,7 +7,7 @@ Yocto project is an ```open source collaboration project``` that provides templa
 ## Yocto Project Build System Overview
 
 ```
-                Poky = Bitbake + Metadata
+    Poky = Bitbake + Metadata
 ```
 
 <br>

@@ -15,10 +15,10 @@ Yocto project is an ```open source collaboration project``` that provides templa
 - <strong>Poky</strong> --> build system used by the Yocto project
 - <strong>BitBake</strong> --> a task executor and scheduler
 - <strong>Metadata</strong> --> task definitions 
-    - <strong>Configuration (.conf)</strong>
-    - <strong>Classes (.bbclass)</strong>
-    - <strong>Recipes (.bb and .bbappend)</strong>
-    - <strong>Includes (.inc)</strong>
+    - <strong>Configuration</strong> ( <strong>.conf</strong> )
+    - <strong>Classes</strong> ( <strong>.bbclass</strong> )
+    - <strong>Recipes</strong> ( <strong>.bb</strong> & <strong>.bbappend</strong> )
+    - <strong>Includes</strong> ( <strong>.inc</strong> )
 
 <br>
 

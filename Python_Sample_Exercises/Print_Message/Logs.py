@@ -1,5 +1,6 @@
 import traceback
 import inspect
+import os
 
-def log(Source_File, cmd):
-    print("\n" + Source_File + ", line " + str(inspect.currentframe().f_back.f_lineno) + ":\n" + cmd)
+def log(cmd):
+    print("\n" + os.path.abspath(str(inspect.getframeinfo(inspect.currentframe().f_back).filename)) + ", line " + str(inspect.currentframe().f_back.f_lineno) + ":\n" + cmd)

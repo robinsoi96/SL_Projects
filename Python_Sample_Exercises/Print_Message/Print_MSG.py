@@ -7,4 +7,4 @@ import Logs
 PATH = os.path.dirname(os.path.abspath(__file__))
 FILENAME = os.path.abspath(__file__)
 
-Logs.log(FILENAME, "Hello")
+Logs.log("Hello")

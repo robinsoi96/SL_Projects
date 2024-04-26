@@ -1,17 +1,19 @@
 #include <stdio.h>
 
-unsigned int factorial(int num)
+unsigned int factorial(unsigned int num)
 {
-    int result = 1;
+    unsigned int result = 1;
     for (int i = num; i > 0; i--){
         result *= i;
     }
+
+    return result;
 
 }
 
 int main()
 {
-    int input;
+    unsigned int input;
     
     printf("Enter the number: ");
     scanf("%d", &input);

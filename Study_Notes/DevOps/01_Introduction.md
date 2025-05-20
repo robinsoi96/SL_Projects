@@ -36,3 +36,5 @@ Jenkins is an open-source automation server that helps automate the parts of sof
 ## Appendix
 
 Reference link: <a href="https://www.geeksforgeeks.org/30-days-of-jenkins/">30 Days of Jenkins: A Complete Guide for Beginners</a> 
+
+Other resource: <a href="https://www.visualpath.in/devopstutorials/devops">DevOps by Imran Tali @VisualPath</a>

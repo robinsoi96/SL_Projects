@@ -28,3 +28,23 @@ Virtualization allows one single physical machine to run multiple simulated envi
 - e.g. Oracle virtualbox, VMware server
 
 <img src="images/Type_2_Hypervisor.png" alt="Type 2 Hypervisor">
+
+## Prerequisites before setup a VM
+
+Install both `Virtualbox` and `Vagrant`
+
+NOTE: If your machine is Windows, do as below:
+
+a) Enable Virtualization in BIOS menu (keyword to search could be `VTx`, `Secure virtual machine` or `Virtualization`)
+
+b) Search "Windows Features" in start menu and uncheck/disable other windows virtualiztion as below: 
+- `Microsoft Hyperv`
+- `Windows Hypervisor platform`
+- `Windows Subsystem for Linux`
+- `Docker Desktop`
+- `Virtual Machine Platform`
+
+## VirtualBox Manual Installation
+
+Reference documentation link: <a href="https://www.virtualbox.org/manual/">VirtualBox.org Manual</a>
+

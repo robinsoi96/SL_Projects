@@ -44,7 +44,29 @@ b) Search "Windows Features" in start menu and uncheck/disable other windows vir
 - `Docker Desktop`
 - `Virtual Machine Platform`
 
-## VirtualBox Manual Installation
+## Virtualbox VM Manual Installation
 
 Reference documentation link: <a href="https://www.virtualbox.org/manual/">VirtualBox.org Manual</a>
 
+## Virtualbox VM Automated Installation
+
+`Vagrant` is VM automation tool to manage or automate VM lifecycle.
+
+### Basic Command Lines with Vagrant
+
+Before playing around with basic Vagrant command lines, do create directory for Vagrant execution
+
+| **Command Lines** | **Explanation / Remarks** |
+|---|---|
+| `vagrant init < BOXNAME >` | Initialize Vargant box < BOXNAME > in the current directory. For < BOXNAME >, search "Vargant Cloud" and look for the box you want to initialize. <br><br> After done initialize, you will see `Vagrantfile` created in the directory. In Vagrantfile, you will see value of `config.vm.box` is < BOXNAME >. <br> You can always update the right < BOXNAME > if needed.|
+| `vagrant up` | Creates amd configure VM according to your `Vagrantfile` <br><br> Once the VM is up, you can see the create VM is available on the Virtualbox manager GUI. |
+| `vagrant box list` | List all downloaded boxes |
+| `vagrant status` | Check the status of VM in current directory |
+| `vagrant ssh` | Perform SSH and login the VM created via Vagrant |
+| `vargant halt` | Power off or shut down the VM <br><br> To restart VM, simply run `vagrant up` |
+| `vagrant reload` | Reboot the VM |
+| `vagrant destroy` | Delete the VM <br><br> You can also verify on Virtualbox manager GUI that the VM is gone after this command is executed |
+| `vagrant global-status` | View status of all VMs in the machine |
+| `vagrant global-status --prune` | Remove stable boxes/VMs from cache, and then show status of all remaining boxes/VMs|
+
+**IMPORTANT**: Please remember to power off your VM before power off your machine

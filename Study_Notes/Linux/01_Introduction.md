@@ -36,6 +36,19 @@ Many open-source licenses exist with different particulars
 
 <img src="images/Linux_Architecture.png" alt="Architecture of Linux">
 
+## Some Important Directories in Linux
+
+- Home Directories: `/root` , `/home/<USERNAME>`
+- User Executable: `/bin` , `/usr/bin` , `/usr/local/bin`
+- System Executable: `/sbin` , `/usr/sbin` , `/usr/local/sbin`
+- Other Mountpoints: `/media` , `/mnt`
+- Configuration: `/etc`
+- Temporary Files: `/tmp`
+- Kernels and Bootloader: `/boot`
+- Server Data: `/var` , `/srv`
+- System Information: `/proc` , `/sys`
+- Shared Libaries: `/lib` , `/usr/lib` , `/usr/local/lib`
+
 ## Popular Linux distros
 
 ### Popular Desktop Linux OS

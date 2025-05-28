@@ -9,6 +9,13 @@
 | `ls -A` | Same as `ls -a`, except it does not show current directory (`.`) and parent directory (`..`)|
 | `ls -F` | This command can help you to identify whether the listed items are files or directories <br><br> If you see `/` at the end of the item listed, it is a directory. If not, it is a file. <br><br> For special files, you will see character such as `!` , `@` or `#` is append to the filename |
 | `ls -l` | List where every files and directories are at separate line <br><br> For each filename in each line, it will also tell you the file type, permissions, number of links, owner, group, file size, last datetime modifed, and the filename <br><br> You can run `ls -lh`, so that the file size is in a human-readable format like KB,MB,GB instead of just raw bytes |
+| `ls -g ` | List all files and directories with the group name <br> Owner name will not be displayed in the output |
+| `ls -i ` | Print inde number of each files and directories |
+| `ls -m` | List all files and directories separated by comma `,` |
+| `ls -n` | List numeric UID and GID of Owner and Groups |
+| `ls -r` | List all files and directories in reverse order |
+| `ls -R` | Shortlist all directories content |
+| `ls -t` | Sorted by modified time, started with the newest file |
 
 For more info on how to play around with `ls` command, can either run `man ls` in Linux system or search on the internet
 

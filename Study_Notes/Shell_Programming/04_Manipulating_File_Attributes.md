@@ -207,3 +207,30 @@ X###
 | `5` | 101 | `r-x` = Read and execute permissions only |
 | `6` | 110 | `rw-` = Read and write permissions only |
 | `7` | 111 | `rwx` = With all read, write and execute permissions |
+
+## Changing Owner and Group of the File
+
+Use `chown` command to change owner and/or group of the file
+
+To change `owner` of the file only:
+
+```
+chown <OPTIONS> <NEW_OWNER_NAME> <FILE(S)>
+```
+
+To change `group` of the file only:
+
+```
+chown <OPTIONS> :<NEW_GROUP_NAME> <FILE(S)>
+```
+
+To change `owner` and `group` of the file:
+
+```
+chown <OPTIONS> <NEW_OWNER_NAME>:<NEW_GROUP_NAME> <FILE(S)>
+```
+
+Things to take note: 
+
+- `<OPTIONS>` on these sample `chown` commands above, can run `man chown` for more information.
+- You can use `chgrp` to change group of the file, but `chown` is still recommended, because it is more portable across different Linux system even for older systems and also can be used to change owner and group of the file.

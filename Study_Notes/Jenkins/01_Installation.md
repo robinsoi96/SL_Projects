@@ -31,5 +31,7 @@ Software requirements:
 - Jenkins installation in Windows: <a href="https://www.jenkins.io/doc/book/installing/windows/">Windows</a>
 - Jenkins installation in Linux: <a href="https://www.jenkins.io/doc/book/installing/linux/">Linux</a>
 - Jenkins installation in macOS: <a href="https://www.jenkins.io/doc/book/installing/macos/">macOS</a>
+- Jenkins installation in Docker: <a href="https://www.jenkins.io/doc/book/installing/docker/">Docker</a>
+- Jenkins installation in Kubernetes: <a href="https://www.jenkins.io/doc/book/installing/kubernetes/">Kubernetes</a>
 
 For full Jenkins installation overview page, can refer to: <a href="https://www.jenkins.io/doc/book/installing/">Installing Jenkins </a>

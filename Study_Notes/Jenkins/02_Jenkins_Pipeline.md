@@ -14,6 +14,14 @@ This is the foundation of "**Pipeline-as-code**"; treating the CD pipeline as a 
 
 Jenkins Pipeline can also be defined in the Jenkins web UI, but Jenkinsfile is much preferred as the best practice to define the Pipeline.
 
+### Why Pipeline?
+
+Before `Pipeline` is introduced, `Freestyle` is used in Jenkins. 
+
+After Pipeline is introduced, Pipeline is widely used, where you can click on the video link below on "**Freestyle vs Pipeline in Jenkns**" to understand why Pipeline is prefered.
+
+**Video URL:** <a href="https://www.youtube.com/watch?v=IOUm1lw7F58">What Is The Difference Between Freestyle and Pipeline in Jenkins</a>
+
 ## Appendix
 
 - <a href="https://www.jenkins.io/doc/book/pipeline/">Jenkins Pipeline</a>

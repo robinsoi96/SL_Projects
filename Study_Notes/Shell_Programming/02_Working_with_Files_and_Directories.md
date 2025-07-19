@@ -26,6 +26,8 @@ For more info on how to play around with `ls` command, can either run `man ls` i
 | `cat <filename>` | View all content of the file |
 | `cat -n <filename>` | View all content of the file, where line numbers are reflected as well |
 | `cat -b <filename>` | Same as `cat -n <filename>`, except it skips the numbering blank lines |
+| `tac <filename>` | View all content of the file, but the last line will be on the top and the first line will be at the bottom |
+| `nl <filename>` | Show all content of the file, but will only number the non-empty lines |
 
 ## Counting Words in File
 

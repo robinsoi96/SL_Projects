@@ -1,4 +1,4 @@
-# Filering Text using `sed`
+# Filtering Text using `sed`
 
 ## Printing Lines with `sed`
 
@@ -20,7 +20,7 @@
 | `sed '`*`<starting_num>`*`,`*`<ending_num>`*`d'` | Delete from line number # *`<starting_num>`* until # *`<ending_num>`* |
 | `sed '`*`<random_num>`*`d;`*`<random_num>`*`d;`*`<random_num>`*`d'` <br><br> `sed -e '`*`<random_num>`*`d' -e '`*`<random_num>`*`d' -e '`*`<random_num>`*`d'` | Delete non-contiguous lines <br><br> Simple explanation: <br> Delete only lines number # *`<random_num>`* , #... |
 | `sed '/`*`<pattern>`*`/d'`| Delete lines with matching pattern or regular expression *`<pattern>`* |
-| `sed '/`*`<START_PATTERN>`*`/,`*`<END_PATTERN>`*`/d'`| Print lines within a range defined by *`<START_PATTERN>`* and *`<END_PATTERN>`* (inclusive) |
+| `sed '/`*`<START_PATTERN>`*`/,`*`<END_PATTERN>`*`/d'`| Delete lines within a range defined by *`<START_PATTERN>`* and *`<END_PATTERN>`* (inclusive) |
 
 ## Performing Substitutions with `sed`
 

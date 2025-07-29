@@ -28,6 +28,8 @@ For more info on how to play around with `ls` command, can either run `man ls` i
 | `cat -b <filename>` | Same as `cat -n <filename>`, except it skips the numbering blank lines |
 | `tac <filename>` | View all content of the file, but the last line will be on the top and the first line will be at the bottom |
 | `nl <filename>` | Show all content of the file, but will only number the non-empty lines |
+| `less <filename>` | Act as "pager" to display content of files one screen at a time, when the content is too long to fit in a single terminal <br><br> - Offers both `forward and backward scrolling` <br> - Press `q` to quit cleanly |
+| `more <filename>` | Similar as `less` command mentioned above <br><br> **Differences compared to `less` command:** <br> - Offers `scrolling`, but scroll screen to screen only, `not flexible compared to the scrolling in less command` <br> - Press `q` to quit, but `not quit cleanly, leaving last displayed page` |
 
 ## Counting Words in File
 

@@ -61,3 +61,20 @@ For more info, can run `man sort` or `sort --help`
 `uniq` command removes duplicate lines of the output, but `only able to remove continuous duplicate lines`.
 
 For more info, can run `man uniq` or `uniq --help`
+
+## The `cut` Command
+
+Below are the most commonly used options with `cut` command:
+
+| Option | Description |
+|:---:|---|
+| `-b`, --bytes=LIST | Selects only the `bytes` specified in LIST |
+| `-c`, --characters=LIST | Selects only the `characters` specified in LIST |
+| `-d`, --delimiter=DELIM | Uses DELIM as the `field delimiter` character instead of the tab character (by default) |
+| `-f`, --fields=LIST | Selects only the `fields` specified in LIST, `separated by the delimiter character` (default is tab, or delimiter decalred in `-d`) |
+| `-n` | `Do not split multi-byte characters` (no effect unless `-b` or `-c` is specified) |
+| `--complement` | Invert the selection of fields/characters. <br> `Print the fields/characters not selected`.|
+| `--output-delimiter` | `Changes the output delimiter for fields` in the cut command bash. |
+
+**NOTE:** <br>
+For more detailed examples, can refer to <a href="https://www.geeksforgeeks.org/linux-unix/cut-command-linux-examples/">`cut` command in Linux with examples</a>

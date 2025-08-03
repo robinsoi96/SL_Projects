@@ -49,6 +49,212 @@ If you do not see the completion message of the background process command, it m
 - To **disable the monitoring messages**, run this command: `set +o monitor`
 - You can also **check all the shell options** with the following: `set -o`
 
+## Moving Foreground Process to Background
+
+While foreground process is running, before you can enter any commands, you have to suspend the foreground process to get a command prompt.
+
+- The `suspend key` on most UNIX system is `Ctrl+Z`
+- To check which key performs which function, can use `stty -a` command
+
+When a foreground is suspended, a command prompt enables you enter a new command; the original process is still in memory but not getting any CPU time.
+
+When you **suspend the current foreground process**, you will **see a line**, where the **1st field having number in the bracket indicating job number**.
+
+To resume the job in background, use `bg` command as below:
+
+```
+    bg %<job_number>
+```
+
+## Moving Background Process to Foreground
+
+When you have a process that is in the background or suspended, you can use `fg` command as below to move it to foreground.
+
+```
+    fg %<job_number>
+```
+
+## Keeping Background Process Around (`nohup` Command)
+
+`nohup` command **prevents your process from getting the HUP (Hang UP) signal** and enables it to **continue processing**.
+
+There are 2 main methods to run `nohup` command:
+
+1) Save the process output to default nohup.out file
+
+```
+    nohup <command> &
+```
+
+**NOTE:** <br>
+If you keep on **running the same `nohup` syntax for different command** as above, the **output will only keep on appending to the default nohup.out file** assuming you run the commands in the same path, **unless you remove the previous nohup.out file** before you will be running the next one.
+
+2) Save the process output to specific file
+
+```
+    nohup <command> > <filename> &
+```
+
+## Waiting for Background Process to Finish (`wait` Command)
+
+There are 2 ways to wait for a background process to finish before doing something else.
+
+1) Press Enter key every few minutes until you get the completion message
+
+2) Use `wait` command
+
+<br>
+
+There are 3 ways to use `wait` command
+
+1) With no options [Wait until all background jobs to finish]
+
+```
+    wait
+```
+
+2) With a process ID [Wait until the specific PID to finish]
+
+```
+    wait <PID>
+```
+
+3) With a job number prefixed with a percent sign [Wait until the specific job number to finish]
+
+```
+    wait %<job_number>
+```
+
+## Listing Running Processes
+
+### `jobs` Command
+
+The `jobs` command shows you the **processes you have suspended** and **the ones running in the background**.
+
+All the jobs shown in `jobs` command can be manipulated using `fg` and `bg` commands.
+
+**Important NOTE:** 
+
+- The **most recent job** will have `+` sign behind the job number in the bracket
+- The **most recent job before the most recent job** will have `-` sign behind the job number in the bracket
+
+### `ps` Command
+
+`ps` command stands for `Process Status`. By default only `ps` command without any argument, it shows those processes that you are running.
+
+#### Common `ps` Options
+
+One of the most commonly used flags for `ps` is the `-f` (full) options. Below table tells the column headings of the output of `ps -f` command.
+
+| Column Heading in `ps -f` Command | Description |
+|:---:|---|
+| `UID` | User ID that this process belongs to (the person running it) |
+| `PID` | Process ID |
+| `PPID` | Parent process ID (the ID of the process that started it) |
+| `C` | CPU utilization of process |
+| *unlabelled* | `nice value` &mdash; used in calculating process priority <br><br> For more information on `nice value`, can refer to sections [`nice` Command](#nice-command) or [`renice` Command](#renice-command) |
+| `STIME` | Proces start time (when it begins) |
+| `CMD` | The command that started this process <br><br> `CMD` with `-f` is different from `CMD` without it; it shows any command line options and arguments |
+
+Two more common options are `-e` (for every) and `-u` (for user). These 2 options **can combine with `-f` option**, but **cannot combine with each other**.
+
+To check every process in the system, run `ps -ef`.
+
+To check all processes run by specific user, run `ps -u <user> -f`.
+
+For more information, may check with `man ps`.
+
+#### BSD `ps` Command Options
+
+`ps aux` is the command with BSD syntax.
+
+Below are the table to explain all BSD syntax accordingly.
+
+| BSD syntax option | Description |
+|:---:|---|
+| `a` | Shows information about all users |
+| `x` | Shows information about processes without terminals (daemons and jobs running nohup) |
+| `u` | Shows additional information or display in a more verbose format (acts like `ps -f`)|
+
+## Killing a Process (`kill` Command)
+
+There are 2 methods to run `kill` command:
+
+1) With job number
+
+```
+    kill %<job_number>
+```
+
+2) With process ID
+
+```
+    kill <PID>
+```
+
+`kill` commands as above will **send the `TERM` signal** to its child processes if applicable **to shut down the process** and eventually itself.
+
+- One thing to note, a **process can choose to ignore the `TERM` signal from `kill` command**.
+
+If a process ignore a regular `kill` command, you can use `kill -9` command accordingly as below syntax examples.
+
+```
+    kill -9 %<job_number>
+
+            or
+    
+    kill -9 <PID>
+```
+
+- This will forces the process to end
+- However, if you only run `kill -9` command on a process but forgot to run the same for its child process, then its child process will become an orphan process
+- In that case, you will run another `kill -9` commands for all remaining orphan processes
+- Therefore, it is best to ensure the main process is done with `kill -9` command including the respective child processes to avoid orphan processes
+
+## `nice` Command
+
+`nice` command is used to **set priority of the new command**.
+
+```
+    nice <priority_number> <new_command>
+```
+
+**NOTE:** <br>
+- *`<priority_number>`* is `nice value` ranges from **-20 to 19**, where -20 is the highest priority (least "nice") and 19 is the lowest priority (most "nice")
+- **INFO:** The default nice value is typically 0
+- You may run **`ps` command with `-l` option to check the nice value (NI)** of the new command executed
+
+## `renice` Command
+
+`renice` command is used to **change priority of an already running process**.
+
+`-n` option is used to tell the new `nice value`.
+
+Below are 3 cases of using `renice` command:
+
+1) Change priority of a process (use `-p` option)
+
+```
+    renice -n <new_nice_value> -p <PID>
+```
+
+2) Adjust priority of all processes belong to specific user (use `-u` option)
+
+```
+    renice -n <new_nice_value> -u <UID_or_User_ID_number>
+```
+
+3) Adjust priority of all processes belong to specific process group (use `-g` option)
+
+```
+    renice -n <new_nice_value> -g <GID_or_Group_ID_number>
+```
+
+**NOTE:** <br>
+- *`<new_nice_value>`* is `nice value` ranges from **-20 to 19**, where -20 is the highest priority (least "nice") and 19 is the lowest priority (most "nice")
+- **INFO:** The default nice value is typically 0
+- You may run **`ps` command with `-l` option to check the nice value (NI)** of the new command executed
+
 ## `top` Command
 
 `top` command is used to show all the running processes within the working environment of Linux.

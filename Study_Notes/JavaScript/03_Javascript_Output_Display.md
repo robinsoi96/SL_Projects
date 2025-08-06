@@ -62,12 +62,43 @@ From the example above, you will see the paragraph with id "demo" shows text "He
 
 ## Using `document.write()`
 
-For testing purposes, it is convenient to use `document.write()`.
+`document.write()` is used to write into HTML output stream.
+
+Example:
+
+```html
+<!DOCTYPE html>
+<html>
+    <body>
+        <p>My first paragraph</p>
+
+        <script>
+            document.write(5)
+        </script>
+    </body>
+</html>
+```
+
+From the example above, the HTML page will print "My first paragraph" and followed by "5" in the next line.
 
 **NOTE:**
 
+Example:
+
+```html
+<!DOCTYPE html>
+<html>
+    <body>
+        <p>My first paragraph</p>
+
+        <button type="button" onclick="document.write(5)">Try it</button>
+    </body>
+</html>
+```
+
+- From example above, by default, the line "My first paragraph" and a button "Try it" at below will be shown
+- When the button is clicked, all default content will disappear, and "5" will be shown
 - Using `document.write()` after HTML document is loaded, will **show content in `document.write()`** but will **delete all existing HTML content**
-- Therefore, `document.write()` should be used only for testing purpose
 
 ## Using `window.alert()`
 

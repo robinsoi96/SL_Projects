@@ -26,11 +26,11 @@ let person = "John", car = "Volvo";
 ```
 - You cannot re-declare a variable declared with `let` or `const`, but you can re-declare those declared with `var`
 ```javascript
-# Re-declaration works
+// Re-declaration works
 var carName = "Volvo";
-var carName # Fine to re-declare, and var carName still have value "Volvo"
+var carName // Fine to re-declare, and var carName still have value "Volvo"
 
-# Re-declaration fails
+// Re-declaration fails
 let carName = "Volvo";
-let carName; # Will not work
+let carName; // Will not work
 ```

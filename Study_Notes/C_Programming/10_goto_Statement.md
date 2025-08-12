@@ -1,6 +1,6 @@
 # `goto` Statement in C Programming
 
-```
+```c
     goto <label>:
     ... .. ...
     ... .. ...

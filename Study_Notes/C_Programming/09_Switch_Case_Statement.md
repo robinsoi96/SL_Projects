@@ -1,6 +1,6 @@
 # Switch Case Statement in C Programming
 
-```
+```c
     switch(<expression>)
     {
         case <constant1>:

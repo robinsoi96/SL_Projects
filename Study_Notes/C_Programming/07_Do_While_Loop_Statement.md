@@ -1,6 +1,6 @@
 # Do-While Loop Statement in C Programming
 
-```
+```c
     do{
         // Body of Do-While loop
     } while(<condition>)

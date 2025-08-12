@@ -1,6 +1,6 @@
 # If Else Statement in C Programming
 
-```
+```c
     // If Condition A (Priority #1) is True, run Statement A
     if (<Condition A) { 
         <Statement A>;

@@ -1,6 +1,6 @@
 # While Loop Statement in C Programming
 
-```
+```c
     while(<condition>){
         // Body of While loop
     }

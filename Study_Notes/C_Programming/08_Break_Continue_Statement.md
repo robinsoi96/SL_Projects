@@ -3,7 +3,7 @@
 ## Break Statement
 
 The `break` statement ends the loop immediately when it is encountered. Its syntax is:
-```
+```c
     break;
 ```
 
@@ -16,7 +16,7 @@ The `break` statement ends the loop immediately when it is encountered. Its synt
 ## Continue Statement
 
 The `continue` statement skips the current iteration of the loop and continues with the next iteration. Its syntax is:
-```
+```c
     continue;
 ```
 

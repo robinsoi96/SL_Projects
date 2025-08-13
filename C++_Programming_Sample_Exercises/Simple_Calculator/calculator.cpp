@@ -40,7 +40,7 @@ int main()
     cout << "Enter 2nd number: ";
     cin >> inputNum2;
 
-    cout << "Provide operations [Add | Substract | Multiply | Divide ]: ";
+    cout << "Provide operations [Add | Subtract | Multiply | Divide ]: ";
     cin >> operation;
 
     cout << endl;

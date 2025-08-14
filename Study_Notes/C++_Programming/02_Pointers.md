@@ -43,6 +43,8 @@ From the example above, pointer `ptr` stores the address of variable `val` using
 
 ## Dereferencing
 
+**Pseudocode samples in C:**
+
 ```c
 int va1 = 22;
 int* ptr = &val; // Declare a pointer and then assign address to the pointer in 1 line
@@ -103,18 +105,16 @@ int main()
 ```c++
 #include <iostream>
 
-using namespace std;
-
 int main()
 {
     int x = 42;
 
     void* ptr = &x; // Declare void pointer
 
-    cout << ptr << endl; // Get void pointer holding address value
+    std::cout << ptr << std::endl; // Get void pointer holding address value
 
     // To derefence, you need to typecast accordingly as example below
-    cout << *(static_cast<int*>(ptr)) << endl; // Get dereferenced value
+    std::cout << *(static_cast<int*>(ptr)) << std::endl; // Get dereferenced value
 
     return 0;
 }

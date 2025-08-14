@@ -1,30 +1,29 @@
 #include <iostream>
 #include <cmath>
+#include <string>
 
-using namespace std;
-
-float performCalculation(float num1, float num2, string operation)
+float performCalculation(float num1, float num2, std::string operation)
 {
     float total;
     if (operation == "Add"){
-        cout << "Performing Addition ..." << endl;
+        std::cout << "Performing Addition ..." << std::endl;
         total = num1 + num2;
         return total;
     } else if (operation == "Subtract"){
-        cout << "Performing Subtraction ..." << endl;
+        std::cout << "Performing Subtraction ..." << std::endl;
         total = num1 - num2;
         return total;
     } else if (operation == "Multiply"){
-        cout << "Performing Multiplication ..." << endl;
+        std::cout << "Performing Multiplication ..." << std::endl;
         total = num1 * num2;
         return total;
     } else if (operation == "Divide"){
-        cout << "Performing Division ..." << endl;
+        std::cout << "Performing Division ..." << std::endl;
         total = num1 / num2;
         return total;
     } else {
-        cout << "The correct operation option is not given. Hence, calculation is not performing" << endl;
-        cout << endl;
+        std::cout << "The correct operation option is not given. Hence, calculation is not performing" << std::endl;
+        std::cout << std::endl;
         exit(1);
     }
 }
@@ -32,22 +31,22 @@ float performCalculation(float num1, float num2, string operation)
 int main()
 {
     float inputNum1, inputNum2;
-    string operation;
+    std::string operation;
 
-    cout << "Enter 1st number: ";
-    cin >> inputNum1;
+    std::cout << "Enter 1st number: ";
+    std::cin >> inputNum1;
 
-    cout << "Enter 2nd number: ";
-    cin >> inputNum2;
+    std::cout << "Enter 2nd number: ";
+    std::cin >> inputNum2;
 
-    cout << "Provide operations [Add | Subtract | Multiply | Divide ]: ";
-    cin >> operation;
+    std::cout << "Provide operations [Add | Subtract | Multiply | Divide ]: ";
+    std::cin >> operation;
 
-    cout << endl;
+    std::cout << std::endl;
 
     float result = performCalculation(inputNum1, inputNum2, operation);
-    cout << endl;
-    cout << "Result: " << result << endl;
+    std::cout << std::endl;
+    std::cout << "Result: " << result << std::endl;
 
     return 0;
 }

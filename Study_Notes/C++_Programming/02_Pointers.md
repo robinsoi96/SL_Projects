@@ -241,6 +241,120 @@ printf("%d\n", *ptr2); // Get address of val
 printf("%d\n", **ptr2); // Get value of val
 ```
 
+## Pointers as Function Arguments &mdash; Call by Reference
+
+**Sample code in C:**
+
+```c
+#include <stdio.h>
+
+void increment(int* x) // Call by reference
+{
+    *x += 1; // *x = *x + 1 (Dereference then increment by 1)
+    printf("Address in the increment function = %d\n", x); // Address value = 1234
+}
+
+int main()
+{
+    int a = 3;
+    // Let's say address of a is 1234
+
+    printf("Value of a before increment = %d\n", a); // a = 3
+
+    increment(&a); 
+
+    printf("Value of a after increment = %d\n", a); // a = 3 + 1 = 4
+    printf("Address after increment function = %d\n", x); // Address value = 1234
+
+    return 0;
+
+}
+```
+
+## Pointers and Arrays
+
+### Quick Recap on Arrays
+
+- Declare an array
+
+```c
+int arr[5]; // Declare an array to store 5 integer values
+```
+
+- Initialize an array
+```c
+// Initialize all values in the array
+int arr1[5] = {2, 4, 6, 8, 10};
+
+// Partially initialization
+int arr2[5] = {2, 4, 6} // The remaining will be with value 0
+
+// Skipping the size of array
+int arr[] = {2, 4, 6}
+
+//Initialize all elements in array to 0
+int array[5] = {0}
+```
+
+- Accessing array index
+
+**Pseudocode sample in C:**
+
+```c
+int arr[5] = {2, 4, 6, 8, 10};
+// From the array above, there are 5 elements into it, and the index value will be from 0 to 4
+// In short, 0 < index < size-1
+
+printf("%d\n", arr[2]); // Here, prints 6 [3rd element ; at index position 2]
+```
+
+- Array also can be multidimensional.
+
+```
+<data_type> <array_name>[<size1>][<size2>]...[<sizeN>];
+```
+
+### Simple Implementation with Arrays and Pointers
+
+**Pseudocode sample in C:**
+
+```c
+int arr[4] = {1, 2, 3, 4}; // Declare array
+int* ptr = arr; // Declare pointer
+
+printf("%d\n", arr); // Print address of 1st element of array, eqivalent to &arr[0]
+
+printf("%d\n", *(arr)); // Print value of 1st element of array, eqivalent to arr[0], which is 1
+
+printf("%d\n", arr + 2); // Print address of 3rd element of array, eqivalent to &arr[2]
+
+printf("%d\n", *(arr + 2)); // Print value of 3rd element of array , eqivalent to arr[2], which is 3
+```
+
+### Arrays as Function Arguments
+
+**Sample code in C:**
+
+```c
+#include <stdio.h>
+
+void sorting(int* ptr, int size) // int* ptr == int ptr[]
+{
+    for (int i = 0; i < size; i++){
+        printf("%d ", *(ptr + i));
+    }
+}
+
+int main()
+{
+    int arr[] = {1, 2, 3, 4, 5};
+    int* ptr = arr;
+    int size = sizeof(arr) / sizeof(arr[0]); // Get the size of array
+    sorting(ptr, size);
+    // Output message: 1 2 3 4 5
+}
+```
+
 ## Appendix
 
 Reference link as below:

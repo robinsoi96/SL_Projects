@@ -355,6 +355,196 @@ int main()
 }
 ```
 
+## Character Arrays and Pointers
+
+### Character Arrays
+
+String is a group of characters.
+
+Character array is a way to store string.
+
+**NOTE:** 
+
+- Size of character array must be **greater or equal to** number of characters in string + 1
+
+```c
+// This will not work, because...
+// size of char array must >= num. of char in string + 1
+char A[4];
+A[0] = "J";
+A[1] = "O";
+A[2] = "H";
+A[3] = "N";
+
+// To make it work, below is example
+char B[8];
+B[0] = "J";
+B[1] = "O";
+B[2] = "H";
+B[3] = "N";
+B[4] = "\0"; // NULL character, to tell that the last character of the string is at B[3], and the rest after B[3] are NULL terminated
+
+char B[8] = {"J", "O", "H", "N", "\0"}
+
+// Another way, you can use string literal as below
+char C[8] = "JOHN";
+char D[] = "JOHN";
+```
+
+### Simple Example of Implementation of Character Array and Pointer
+
+**Pseudocode sample in C:**
+
+```c
+char C[8] = "JOHN";
+char* ptr;
+
+ptr = C; // NOTE: "C = ptr;" is invalid
+
+printf("%d\n", *ptr); // Here, prints "J"
+printf("%d\n", C[0]) // Prints "J" as well
+printf("%d\n", ptr); // Here, print the address of "J" in array C[8]
+
+printf("%d\n", *(ptr + 2)); // Here, prints "H"
+printf("%d\n", C[2]) // Prints "H" as well
+printf("%d\n", (ptr + 2)); // Here, print the address of "H" in array C[8]
+```
+
+### Character Arrays as Function Arguments
+
+**Sample code in C:**
+
+```c
+#include <stdio.h>
+#include <string.h>
+
+void printString(char* C) // If you disable element value to be changed in this function only, you can update to (const char* C)
+{
+    while(*C != "\0"){
+        printf("%c", *C);
+        C++;
+    }
+    printf("\n");
+}
+
+int main()
+{
+    char D[8] = "JOHN";
+    // You can do as below which is similar:
+    // char* D = "JOHN"; --> equivalent to const char D[8] = "JOHN";
+    // However, the sample line above, you cannot alter the element in the array. [e.g. set D[0] = "A" is invalid]
+
+    printString(D); // Here, prints "JOHN"
+
+    return 0;
+}
+```
+
+## Pointers and Multi-dimensional Arrays
+
+### Working with 2D Arrays
+
+**Pseudocode sample in C:**
+
+```c
+// Example of 2D array
+//int A[2][3]; --> it has 2 rows & 3 columns
+
+// Initialize 2D array
+int A[2][3] = {{1,2,3}, {4,5,6}};
+int A[2][3] = {1,2,3,4,5,6}; //Traverse
+
+//int* ptr = A;
+// Above commented code is invalid
+// Because A is not normal 1D array
+
+// Usage of pointer for 2D array
+int (*ptr)[3] = A; // equivalent to ptr[][3] = A[2][3]
+// Pointer initialization syntax for 2D array: 
+// <data_type> (*<ptr_name>)[<max_column>]
+
+printf("%d\n", ptr); // Print address of A[0]
+printf("%d\n", *ptr); // Print address of A[0][0]
+printf("%d\n", **ptr); // Print 1, which is the value of A[0][0]
+
+printf("%d\n", (ptr + 1)); // Print address of A[1]
+printf("%d\n", *(ptr + 1)); // Print address of A[1][0]
+printf("%d\n", (*(ptr + 1) + 1)); // Print address of A[1][1]
+printf("%d\n", **(ptr + 1)); // Print 4, which is the value of A[1][0]
+printf("%d\n", *(*(ptr + 1) + 1)); // Print 5, which is the value of A[1][1]
+
+printf("%d\n", *(*ptr + 1)); // Print 2, which is the value of A[0][1]
+printf("%d\n", (*ptr + 1)); // Print address of A[0][1]
+
+// NOTE:
+// B[i][j] = *(B[i] + j) = *(*(B + i) + j)
+// &B[i][j] = *(B + i) + j
+```
+
+### Working with Multi-dimension Arrays
+
+Implementation is very similar as in the [sub-chapter above](#working-with-2d-arrays)
+
+Some extra stuff to take note will be explained in sample pseudocode below.
+
+**Pseudocode sample in C:**
+
+```c
+// Example of 3D array
+// int A[3][2][2]; --> it has 3 rows, 2 columns and depth size of 2
+
+// Initialize 3D array
+int A[3][2][2] = {{{1,2}, {3,4}},{{5,6}, {7,8}},{{9,10}, {11,12}}};
+int A[3][2][2] = {1,2,3,4,5,6,7,8,9,10,11,12}; // Traverse
+
+// Usage of pointer for 2D array
+int (*ptr)[2][2] = A;
+// Pointer initialization syntax for 3D array: 
+// <data_type> (*<ptr_name>)[<max_column>][<max_depth>]
+
+printf("%d\n", ptr); // Print address of A[0]
+printf("%d\n", *ptr); // Print address of A[0][0], same as address of A[0]
+printf("%d\n", **ptr); // Print address of A[0][0][0]
+printf("%d\n", ***ptr); // Print 1, which is the value of A[0][0][0]
+
+// NOTE [with 3D array examples]:
+// A[i][j][k] = *(A[i][j] + k) = *(*(A[i] + j) + k) = *(*(*(A + i) + j) + k)
+// &A[i][j][k] = *(*(A + i) + j) + k
+```
+
+### Multi-dimension Arrays as Function Arguments
+
+**Sample code in C:**
+
+```c
+#include <stdio.h>
+
+// Function for 2D array
+void array2D(int (*ptr)[3]) // int ptr[][3] is fine as well
+{
+    // Write code for function array2D
+}
+
+// Function for 3D array
+void array3D(int (*ptr)[2][3]) // int ptr[][2][3] is fine as well
+{
+    // Write code for function array3D
+}
+
+int main()
+{
+    int A[2][3] = {{1,2,3},{4,5,6}}; //2D array
+
+    int B[2][2][3] = {{{1,2,3},{4,5,6}},{{7,8,9},{10,11,12}}}; //3D array
+
+    array2D(A); // won't work if y is not equal to 3 in A[x][y], as per reference function mentioned
+
+    array3D(B); // won't work if y is not equal to 2 and z is not equal to 3 in B[x][y][z], as per reference function mentioned
+
+    return 0;
+}
+```
+
 ## Appendix
 
 Reference link as below:

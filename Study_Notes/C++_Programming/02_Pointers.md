@@ -491,7 +491,7 @@ Some extra stuff to take note will be explained in sample pseudocode below.
 
 ```c
 // Example of 3D array
-// int A[3][2][2]; --> it has 3 rows, 2 columns and depth size of 2
+// int A[3][2][2]; --> it has depth size of 3, 2 row and 2 columns
 
 // Initialize 3D array
 int A[3][2][2] = {{{1,2}, {3,4}},{{5,6}, {7,8}},{{9,10}, {11,12}}};
@@ -500,7 +500,7 @@ int A[3][2][2] = {1,2,3,4,5,6,7,8,9,10,11,12}; // Traverse
 // Usage of pointer for 2D array
 int (*ptr)[2][2] = A;
 // Pointer initialization syntax for 3D array: 
-// <data_type> (*<ptr_name>)[<max_column>][<max_depth>]
+// <data_type> (*<ptr_name>)[<max_row>][<max_column>]
 
 printf("%d\n", ptr); // Print address of A[0]
 printf("%d\n", *ptr); // Print address of A[0][0], same as address of A[0]

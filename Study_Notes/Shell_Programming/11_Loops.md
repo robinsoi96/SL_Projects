@@ -22,6 +22,11 @@ done
 for item in item1 item2 ... itemN; do
     # code to execute for each item
 done
+
+# Another method
+for ((initialization; condition; increment)); do
+    # code to execute
+done
 ```
 
 ## `select` Loop

@@ -120,6 +120,20 @@ int main()
 }
 ```
 
+## Null Pointer
+
+Null pointer is not pointing to any valid memory location.
+
+To initialize a null pointer:
+
+```c++
+int* ptr = nullptr; // For C++11 and above
+
+int* ptr = NULL; // For C and C++11 & below
+
+int* ptr = 0; // This also can, but not preferred 
+```
+
 ## Changing Pointer Type
 
 You can change the pointer type as the sample pseudocode below. However, if data type of pointer changed has different number of bytes, you will see the dereference value differ as sample below.

@@ -35,7 +35,7 @@ int val = 22;
 int* ptr = &val; // '&' indicates get memory address of val
 ```
 
-From the example above, pointer `ptr` stores the address of variable `val` using **addressof operator(`&`)**
+From the example above, pointer `ptr` stores the address of variable `val` using **address of operator(`&`)**
 
 **IMPORTANT NOTE:**
 

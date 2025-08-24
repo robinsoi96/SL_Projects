@@ -559,8 +559,371 @@ int main()
 }
 ```
 
+## Dynamic Memory Allocation in C/C++
+
+### Memory Management in Programming
+
+A generic programming memory is organized into speciic regions (segments) as shown in the image below, where each serving distinct purposes for program execution.
+
+<br>
+
+<img src="./images/Memory_Layout_in_Programming.png" alt="Memory Management in Programming"></img>
+
+#### 1) `Text Segment`
+
+- Also known as `code segment`, where the **executable code of the program is stored**
+- Contains **compiled machine code of the program's functions and instructions**
+- Usually **read-only** and stored in the **lower parts of the memory** to **prevent accidental modification of the code** while the program is running
+- Size of the text segment is determined by the number of instructions and the complexity of the program 
+
+#### 2) `Data Segment`
+
+- **Stores global and static variables** created by programmer
+- Present just above the code segment of the program
+- Divided into 2 parts, which are `initialized data segment` and `uninitialized data segment(BSS)`
+- Initialized data segment, as the name suggests, is the part of data segment contains global and static variables which have been initialized
+- Uninitialized data segment often called the "**bss**" segement, named after an ancient assembler operator, that stood for "Block Started by Symbol" contains global and static variables that are not initialized
+
+#### 3) `Heap Segment`
+
+- Heap segment is where **dynamic memory allocation** usually takes place
+- The heap area **begins at the end of the BSS segment and grows towards the larger addresses from there**
+- Heap segment is shared by all shared libraries and dynamically loaded modules in a process
+
+<br>
+
+**EXTRAS:**
+
+- In C and C++, we can perform dynamic memory allocation with our control and need to be responsible ourselves, which will be discussed in next sub-chapters
+- In Python, Java, or high-level programming language, there's Garbage Collector (GC) to automatically handle memory management, using algorithms like Mark-and-Sweep, Reference Counting, etc
+- Reference link for statements under **EXTRAS** section: <a href="https://www.tutorialspoint.com/computer_programming/computer_programming_dynamic_memory_management.htm">Computer Programming - Dynamic Memory Management</a>
+
+#### 4) `Stack Segment`
+
+- The stack is a region of memory used for **local variables and function call management**
+- Each time a function is called, a `stack frame` is created to store local variables, function parameters, and return addresses
+- This stack frame is stored in this segment
+- The stack segement is generally **located in the higher addresses of the memory and grows opposite to heap**
+- They adjoin each other so when stack and heap meet, free memory of the program is said to be exhausted (or known as stack overflow)
+
+### Dynamic Memory Allocation in C with Pointers (`malloc`, `calloc`, `realloc`, `free`)
+
+Dynamic memory allocation is possible to be done in C by using the following 4 library functions provided by `<stdlib.h>` library:
+
+- `malloc()`
+- `calloc()`
+- `realloc()`
+- `free()`
+
+<br>
+
+#### `malloc`
+
+`malloc()` function, stands for **memory allocation**, is used to **allocate a single block of contiguous memory** on the heap at runtime.
+
+The memory allocated by `malloc()` is **uninitialized**, meaning it **contains garbage values**.
+
+**Generic syntax for `malloc()`**:
+
+```c
+void* ptr = malloc(<size>);
+
+// <size> = number of bytes to allocate
+```
+
+**Preferred syntax for `malloc()`**:
+
+```c
+<data_type>* ptr = (<data_type>*)malloc(<number_of_elements>*sizeof(<data_type>));
+
+// Typecasting method is much preferred
+// So that, you can dereference easily
+
+// With sample syntax above, you can do as below sample line
+int* ptr = (int*)malloc(3*sizeof(int));
+
+// From the line above, you are allocating a block of memory where storing 3 integers 
+// [Total: 3*4 = 12 bytes of memory, where int has 4 bytes]
+// But all these 3 integers in the block are garbage values
+```
+
+This function returns a void pointer to the allocated memory that needs to be converted to the pointer of required type to be usable.
+
+**If allocation fails, it returns NULL pointer**.
+
+<br>
+
+#### `calloc`
+
+`calloc()` function, stands for **contiguous allocation**, is **similar to malloc()**, but it **initializes the allocated memory to zero**.
+
+It is **used when you need memory with default zero values**.
+
+**Generic syntax for `calloc()`**:
+
+```c
+void* ptr = calloc(<number_of_elements>, <size>);
+
+// <size> = number of bytes to allocate
+```
+
+**Preferred syntax for `calloc()`**:
+
+```c
+<data_type>* ptr = (<data_type>*)calloc(<number_of_element>, sizeof(<data_type>));
+
+// Typecasting method is much preferred
+// So that, you can dereference easily
+
+// With sample syntax above, you can do as below sample line
+int* ptr = (int*)calloc(3, sizeof(int));
+
+// From the line above, you are allocating a block of memory where storing 3 integers 
+// [Total: 3*4 = 12 bytes of memory, where int has 4 bytes]
+// All these 3 integers in the block are having value of zero by default
+```
+
+This function returns a void pointer to the allocated memory that needs to be converted to the pointer of required type to be usable.
+
+**If allocation fails, it returns NULL pointer**.
+
+<br>
+
+#### `realloc`
+
+`realloc()` function is used to **resize a previously allocated memory block**.
+
+It allows you to change the size of an existing memory allocation without needing to free the old memory and allocate a new block.
+
+**Generic syntax for `realloc()`**:
+
+```c
+ptr = realloc(ptr, <new_size>);
+
+// Here, assume ptr has done allocated before either via malloc() or calloc()
+// <new_size> = new number of bytes to allocate
+```
+
+**Preferred syntax for `realloc()`**:
+
+```c
+ptr = (<data_type>*)realloc(ptr, <new_number_of_element>*sizeof(<data_type>));
+
+// Here, assume ptr has done allocated before either via malloc() or calloc()
+
+// Typecasting method is much preferred
+
+// With sample syntax above, you can do as below sample line
+ptr = (int*)realloc(3, sizeof(int));
+
+// From the line above, you are reallocating a block of memory to store 3 integers 
+// The reallocated memory block will have:
+// 3*4 = 12 bytes of memory, where int has 4 bytes
+```
+
+This function **returns a pointer to the newly allocated memory**, or **NULL if the reallocation fails**. 
+
+**If it fails, the original memory block remains unchanged**. Also, it is important to note that if `realloc()` fails and returns NULL, the **original memory block is not freed**, so you should not overwrite the original pointer until you've successfully allocated a new block.
+
+To prevent memory leaks, it's a good practice to handle the NULL return value carefully as sample pseudocode below:
+
+```c
+int* ptr = (int*)malloc(5*sizeof(int)); // Allocation
+
+int* temp = (int*)realloc(ptr, 10*sizeof(int)); // Reallocation, but with good practice where new or temp pointer is created first
+// To prevent original block memory allocated to be overwritten in case fail to reallocate
+
+//Only update the pointer if reallocation is successful
+if (temp == NULL){
+    printf("Memory Reallocation Failed\n");
+} else {
+    ptr = temp;
+}
+
+// Remember to free memory block after done using as below
+free(ptr);
+ptr = NULL;
+
+return 0; // End main function block
+```
+
+**EXTRAS:**
+
+- Syntax equivalent to `free()`:
+
+```c
+int* ptr = (int*)realloc(ptr, 0); // free(ptr);
+```
+
+- Syntax equivalent to `malloc()`:
+
+```c
+int* ptr = (int*)realloc(NULL, 4*sizeof(int)); //int* ptr = malloc(4*sizeof(int));
+```
+
+<br>
+
+#### `free`
+
+The memory allocated using functions `malloc()` and `calloc()` will not be de-allocated on their own.
+
+Therefore, `free()` function is **used to release dynamically allocated memory** back to operating system.
+
+It is **essential to free memory** that is no longer needed to **avoid memory leaks**.
+
+**Syntax for `free()`**:
+
+```c
+free(ptr);
+```
+
+**After freeing the memory block**, the **pointer becomes invalid**, and it is **no longer pointing to a valid memory location**.
+
+**After calling `free()`**, it is a **good practice to set the pointer to NULL** to avoid using a "`dangling pointer`", which points to a memory location that has been deallocated.
+
+```c
+ptr = NULL; // Set pointer to NULL after free() is being used to avoid "dangling pointer"
+```
+
+**Pseudocode on good practice to free memory dynamically**:
+
+```c
+// Now new memory block is allocated
+int* ptr = (int*)malloc(3*sizeof(ptr));
+
+// Let's assume here the allocated memory block is done using...
+
+free(ptr); // Free immediately to avoid memory leak
+
+ptr = NULL; // Then, set pointer to NULL to avoid "dangling pointer"
+```
+
+<br>
+
+#### Issues Associated with Dynamic Memory Allocation in C
+
+As useful as dynamic memory allocation is, it is also prone to errors that requires careful handling to avoid the high memory usage or even system crashes.
+
+Few of the common errors are as below:
+
+- `Memory Leaks`: Failing to free dynamically allocated memory can cause undefined behaviour or crashes
+- `Dangling Pointers`: Using a pointer after freeing its memory can cause undefined behaviour or crashes
+- <a href="https://www.geeksforgeeks.org/operating-systems/what-is-fragmentation-in-operating-system/">`Fragmentation`</a>: Repeated allocations and deallocations can fragment memory, causing inefficient use of heap space 
+
+<br>
+
+### Dynamic Memory Allocation in C++ with Pointers (`delete`, `new`)
+
+In C++, for greater control and flexibility, dynamic memory allocation on the `heap` is used, allowing **manual allocation with `new`** and **manual deallocation with `delete`**.
+
+<br>
+
+#### `new`
+
+```c++
+// To allocate memory block with 1 element only...
+int* ptr = new int; //equivalent to int* ptr = (int*)malloc(sizeof(int)); in C 
+ptr = 6;
+
+// The 2 code lines above can be written into this 1 single line below
+int* ptr = new int(6);
+```
+
+```c++
+// To allocate memory block with more than 1 element or an array of elements
+int* ptr = new int[3]; // equivalent to int* ptr = (int*)malloc(3*sizeof(int)); in C
+// To allocate memory block with 3 integers
+ptr[0] = 1;
+ptr[1] = 2;
+ptr[2] = 3;
+
+// A more preferrable method if to allocate memory block with more than 1 elements and initialize each of them in single line
+int* ptr = new int[3]{1, 2, 3};
+```
+
+**What if enough memory is not available during runtime?**
+
+If enough memory is not available in the heap to allocate, the `new` request indicates failure by throwing an exception of type `std::bad_alloc`, unless "`std::nothrow`" is used with the `new` operator, in which case it returns a `nullptr` pointer.
+
+Therefore, it is a good idea to check for the pointer variable produced by `new` before using its program as sample pseudocode below.
+
+```c++
+int *ptr = new(std::nothrow) int;
+if (!ptr){
+    std::cout << "Memory allocation failed\n";
+}
+```
+
+<br>
+
+#### `delete`
+
+```c++
+// Deallocate memory block with 1 element
+delete ptr; // Deallocate
+ptr = nullptr; // Set pointer to NULL to avoid dangling pointer right after delete
+
+// Deallocate memory block with more than 1 element or an array of elements
+delete[] ptr; // Deallocate
+ptr = nullptr; // Set pointer to NULL to avoid dangling pointer right after delete
+
+// NOTE: delete ptr or delete[] ptr is equivalent to free(ptr) in C
+// It's a good practice to deallocate immediately right after the allocated memory block is unused
+```
+
+<br>
+
+#### Errors Associated with Dynamic Memory in C++ with `new` and `delete` operators
+
+As powerful as dynamic memory allocation is, it is prone to one of the worst errors in C++.
+
+The major errors include:
+
+- `Memory Leaks`
+
+    - Memory leak is a situation where the memory allocated for a particular task remains allocated even after it is no longer needed
+    - Morever, if the address to the memory is lost, then it will remain allocated till the program runs
+    - **Solution**: Use [smart pointers](#dynamic-memory-allocation-in-c-with-smart-pointers) whenever possible. They automatically deallocate when goes out of scope.
+
+- `Dangling Pointers`
+
+    - Dangling pointers are created when memory pointed by the pointer is accessed after it is deallocated, leading to undefined behaviour (crashes, garbage data, etc)
+    - **Solution**: Initialize pointers with `nullptr` and assign `nullptr` again when deallocated
+
+- `Double Deletion`
+
+    - When `delete` is called on the same memory twice, leading to crash on corrupted program
+    - **Solution**: assign `nullptr` to the memory pointer when deallocated
+
+- `Mixing new/delete in C++ with malloc()/free() in C`
+
+    - C++ supports the C style dynamic memory allocation using `malloc()`, `calloc()`, `free()`, etc, but these functions are not compatible
+    - It means that we cannot allocate memory using new and delete if using free(). Same for malloc() and delete.
+
+<br>
+
+### Dynamic Memory Allocation in C++ with `Smart Pointers`
+
+A `smart pointer` is a **wrapper over a raw pointer** that **automatically manages memory, ensuring proper deallocation and preventing memory leaks**.
+
+Defined in the `<memory>` header, smart pointers are **template-based**, allowing use with any data type
+
+C++ libraries provide implementations of smart pointers in the following types:
+
+- `std::auto_ptr`
+- `std::unique_ptr`
+- `std::shared_ptr`
+- `std::weak_ptr`
+
+<br>
+
 ## Appendix
 
 Reference link as below:
 
 - <a href="https://youtu.be/zuegQmMdy8M?si=GNMiiWYbrbt3_Ben">Pointers in C/C++ [Full Course]</a>
+- <a href="https://www.geeksforgeeks.org/c/memory-layout-of-c-program/">Memory Layout of C Programs</a>
+- <a href="https://www.geeksforgeeks.org/c/dynamic-memory-allocation-in-c-using-malloc-calloc-free-and-realloc/">Dynamic Memory Allocation in C</a>
+- <a href="https://www.geeksforgeeks.org/cpp/new-and-delete-operators-in-cpp-for-dynamic-memory/">`new` and `delete` Operators in C++ For Dynamic Memory</a>
+- <a href="https://www.geeksforgeeks.org/cpp/placement-new-operator-cpp/">Placement new operator in C++</a>
+- <a href="https://www.geeksforgeeks.org/cpp/smart-pointers-cpp/">Smart Pointers in C++</a>

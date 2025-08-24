@@ -27,3 +27,27 @@ int& y = x; // & used for referencing the value x
 
 int* ptr = &x; // & used to point the address of x
 ```
+
+## C++ Function &mdash; Pass by Reference
+
+```c++
+#include <iostream>
+
+void increment(int& reference) // Pass by reference
+{
+    reference++;
+    std::cout << "Value in increment function: " << reference << std::endl; // x = 123 + 1 = 124
+}
+
+int main()
+{
+    int x = 123;
+    std::cout << "Value of x before increment: " << x << std::endl; // x = 123
+
+    increment(x); 
+
+    std::cout << "Value of x after increment: " << x << std::endl; // x = 123 + 1 = 124
+
+    return 0;
+}
+```

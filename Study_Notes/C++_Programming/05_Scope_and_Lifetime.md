@@ -22,7 +22,7 @@ Scope of a variable is the region of code within which a variable is accessible,
 - The **lifetime of an object is not determined by the scope** in which the object was defined
 - In C, we use operator like `malloc`, `calloc`, `realloc`, `free`
 - In C++, we use operator like `new`, `delete`, and also use `smart pointers`
-- For more information on dynamic memory allocation, may refer to [C/C++ Pointer Chapter](./02_Pointers.md)
+- For more information, may refer to [Dynamic Memory Allocation mentioned in C/C++ Pointer Chapter](./02_Pointers.md#dynamic-memory-allocation-in-cc)
 
 ### Static Storage Duration
 

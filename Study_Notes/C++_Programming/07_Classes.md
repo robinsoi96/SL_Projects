@@ -14,7 +14,8 @@ From the sample picture below, the animal type Dog is a class, while a particula
 **Generic syntax to define a class in C++:**
 
 ```c++
-class className {
+class className 
+{
     access_specifier:
         // data members
         //member functions
@@ -30,7 +31,8 @@ From the generic syntax above, you can see a class in C++ generally having `acce
 Data members are those **variables defined inside a class**.
 
 ```c++
-class className {
+class className 
+{
     int a; // int a is a data member
 };
 ```
@@ -46,7 +48,8 @@ There are 2 ways to define member function in a class.
 **Method #1:** Define member function in a class
 
 ```c++
-class className{
+class className
+{
     void funcName()
     {
         // List actions in the function
@@ -57,7 +60,8 @@ class className{
 **Method #2:** Define member function outside a class
 
 ```c++
-class className{
+class className
+{
     void funcName();
 };
 
@@ -129,7 +133,8 @@ class className {
 - Another way to write a class is to write a `struct`, which has all members with `public` access specifier by default
 
 ```c++
-struct className {
+struct className 
+{
     // everything in here has public access by default
     // since struct has public access specifier by default
 };
@@ -155,8 +160,181 @@ objectName.memberFunctionName(..); // To access member function
 // Dot (.) operator is used to access members in a class
 ```
 
+<br>
+
+## `Constructors`
+
+A constructor is a **`member function that has the same name` as the class**. 
+
+The **purpose** of constructor is to **initialize an object of a class**. It constructs an object and can set values to data members.
+
+If a class has a constructor, all objects of that class will be initialized by a constructor call. In short, **when an object is created, a code inside the constructor runs**.
+
+**NOTE:** 
+
+- Constructors are invoked when object initialization takes place. 
+- They cannot be invoked directly
+
+```c++
+#include <iostream>
+
+class className
+{
+    public:
+        className()  // This is a sample constructor without any parameters
+        {
+            std::cout << "Constructor is called";
+        }
+};
+
+int main()
+{
+    className obj1; // Invoke constructor when object is initialized
+
+    return 0;
+}
+```
+
+**EXTRAS:** Another fancy but useful method to prepare constructor outside class (especially a lot of parameters)
+
+```c++
+#include <iostream>
+
+class className
+{
+    public:
+        className(); // Constructor
+};
+
+className::className() // Constructor outside class
+{
+    // Initialization of parameters
+}
+
+int main()
+{
+    className obj1; // Invoke constructor when object is initialized
+
+    return 0;
+}
+```
+
+There are 4 main types of constructors in C++:
+
+- `Default Constructor`
+- `Parameterized Constructor`
+- `Copy Constructor`
+- `Move Constructor`
+
+<br>
+
+### `Default Constructor`
+
+Default constructor is a **`constructor without parameters or with default parameters set`**.
+
+**Example of default constructor without parameters:**
+
+```c++
+#include <iostream>
+
+class MyClass
+{
+    public:
+        MyClass() // Default constructor with no parameters
+        {
+        } 
+};
+
+int main()
+{
+    MyClass obj1; // Invoke a default constructor
+    return 0;
+}
+```
+
+**Example of default constructor with default parameters given:**
+
+```c++
+# include <iostream>
+
+class MyClass
+{
+    public:
+        int x, y;
+        MyClass(int xx, int yy) // Default constructor with parameters
+        {
+            x = xx;
+            y = yy;
+        }
+};
+
+int main()
+{
+    MyClass obj1{1,2}; // Invoke default constructor with parameters
+    std::cout << obj1.x << ", " << obj1.y; // Prints "1, 2"
+}
+```
+
+**EXTRAS:**
+
+Default constructor will be automatically generated even if user does not define one
+
+```c++
+#include <iostream>
+
+// Class with no explicity defined constructors
+class MyClass
+{
+    public: 
+        // For here, even if user does not define any constructor
+        // MyClass(){} constructor will be auto-generated here
+};
+// NOTE: If user has defined a constructor, the default constructor will not be auto-generated
+
+int main()
+{
+    MyClass obj1; // Create object obj1
+    return 0;
+}
+```
+
+<br>
+
+### `Parameterized Constructor`
+
+Parameterized constructor allow us to pass arguments, but a better and more efficient way to initialize an object of a class
+
+```c++
+#include <iostream>
+
+class MyClass
+{
+    public:
+        int x, y;
+        MyClass(int xx, int yy) : x{xx}, y{yy} // member initializer list ==> x = xx; y = yy
+        {
+        }
+
+        // Or you can write as below for parameterized constructor, but above is much preferred
+        /*
+        MyClass(int xx, int yy) : x(xx), y(yy)
+        {
+        }
+        */
+};
+
+int main()
+{
+    MyClass obj1{1,2}; // Invoke parameterized constructor
+    std::cout << obj1.x << ", " << obj1.y; // Prints "1, 2"
+}
+```
+
+<br>
+
 ## Appendix
 
 Reference link:
 
 - <a href="https://www.geeksforgeeks.org/cpp/c-classes-and-objects/">C++ Classes and Objects</a>
+- <a href="https://www.geeksforgeeks.org/cpp/constructors-c/">Constructors in C++</a>

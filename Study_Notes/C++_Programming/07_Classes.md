@@ -332,9 +332,304 @@ int main()
 
 <br>
 
+### `Copy Constructor`
+
+**If we do not supply our copy constructor**, the compiler generates a default copy constructor that performs so-called **`shallow copy`**.
+
+However, we **need to define our own copy constructor** only **if an object has pointers or any runtime allocation** like a file handle, a network connection, etc.
+
+<br>
+
+#### Comparison between shallow copy and deep copy
+
+- `Shallow copy` means that **only the pointers will be copied not the actual resources that the pointers are pointing to**. This can **lead to dangling pointers if the original object is deleted**.
+- `Deep copy` is possible only with a user-defined `copy constructor`. In user-defined copy constructor, we **make sure that pointers (or references) of copied objects point to new copy of the dynamic resource allocated manually** in the copy constructor **using `new` operators**.
+
+<img src="./images/Shallow_vs_Deep_Copy.png" alt="Shallow Copy vs Deep Copy"></img>
+
+For more information on comparison between shallow and deep copy, can refer <a href="https://www.geeksforgeeks.org/cpp/shallow-copy-and-deep-copy-in-c/">here</a>
+
+<br>
+
+#### User-defined Copy Constructor
+
+**Syntax to define copy constructor in a class:**
+
+```c++
+className (const ClassName& ref_obj)
+{
+    // Body of copy constructor
+    // const is optional but added to avoid us from modifying object by mistake
+}
+```
+
+**Sample implementation with copy constructor:**
+
+- Without any pointer
+
+```c++
+#include <iostream>
+
+class MyClass
+{  
+    public:
+        int x, y;
+        MyClass(int xx, int yy) : x{xx}, y{yy} // Parameterized constructor
+        {
+        }
+
+        MyClass(const MyClass& ref_obj) : x{ref_obj.x}, y{ref_obj.y} // Copy constructor
+        {
+        }
+};
+
+int main()
+{
+    MyClass obj1{1,2};
+    MyClass obj2 = obj1; // Invoke copy constructor
+
+    std::cout << obj2.x << "; " << obj2.y; // Output ==>  1; 2
+
+    return 0;
+}
+```
+
+- WIth pointer
+
+```c++
+#include <iostream>
+
+class MyClass
+{  
+    public:
+        int x;
+        int* y;
+        MyClass(int xx, int yy) : x{xx}, y{new int{yy}} // Parameterized constructor
+        {
+        }
+
+        MyClass(const MyClass& ref_obj) : x{ref_obj.x}, y{ new int {*ref_obj.y}} // Copy constructor
+        {
+        }
+};
+
+int main()
+{
+    MyClass obj1{1,2};
+    MyClass obj2 = obj1; // Invoke copy constructor
+
+    std::cout << obj2.x << "; " << *(obj2.y); // Output ==>  1; 2
+
+    // This sample is still not a good practice with pointer, because delete pointer is not done right after the pointer is unused
+
+    // Destructor will be discussed in later chapter
+    return 0;
+}
+```
+
+<br>
+
+#### `Copy Assignment Operator`
+
+**Syntax to define copy assignment operator in a class:**
+
+```c++
+className& operator=(const className& ref_obj)
+{
+    // Body of copy assignment operator
+    return *this;
+}
+```
+
+**Pseudocode to define user-defined copy asignment operator outside a class:**
+
+```c++
+class className
+{
+    public:
+        className& operator=(const className& ref_obj);
+};
+
+// Define copy assignment operator outside the class
+className& className::operator=(const className& ref_obj)
+{
+    // Implement the copy logic here
+    return *this;
+}
+```
+
+**Sample code line to invoke copy assignment operator:**
+
+```c++
+className obj_copyTo, obj2_copyFrom;
+obj_copyTo = obj_copyFrom; // Invoke copy assignment operator
+```
+
+**Main difference between `copy constructor` and `copy assignment operator`:**
+
+| Copy Constructor | Copy Assignment Operator |
+|---|---|
+| Makes a new memory storage every time it is called | Does not make new memory storage |
+| Is called when a new object is created from an existing object, as a copy of the existing object | Is called when an already initialized object is assigned a new value from another existing object |
+
+Pseudocode below shows the difference in defining the statement respectively:
+
+```c++
+MyClass t1, t2;
+MyClass t3 = t1; // Invoke copy constructor
+t2 = t1; // Invoke copy assignment operator
+```
+
+<br>
+
+### `Move Constructor`
+
+`Move semantics` (action of moving data from one object to the other) is achieved through a move constructor and move assignment operator.
+
+Move operation is **efficient in terms of speed of execution, as we do not have to make copies**.
+
+The object from which the data was moved is left in some valid but unspecified state. It **can be seen as stealing the resources from other objects**.
+
+Move constructor accepts something called `rvalue reference` as an argument. The rvalue reference type is **T&&**, with `double reference symbols`.
+
+**Syntax to define move constructor in a class:**
+
+```c++
+className(className&& ref_obj)
+{
+    // Body of move constructor
+}
+```
+
+To cast something to an rvalue reference, we need to use `std::move` function as in sample pseudocode below.
+
+```c++
+#include <iostream>
+
+class MyClass
+{
+    public:
+        int x;
+        MyClass(int xx) : x{xx} // Parameterized constructor
+        {
+        }
+        MyClass(MyClass&& ref_obj) : x{std::move(ref_obj.x)} // Move constructor
+        {
+        }
+};
+
+int main()
+{
+    MyClass obj1{1};
+    MyClass obj2 = std::move(obj1); // Invoke move constructor
+
+    std::cout << obj1.x; // Output ==> 1
+
+    return 0;
+}
+```
+
+<br>
+
+#### `Move Assignment Operator`
+
+Move assignment operator acts very similar to [copy assignment operator](#copy-assignment-operator), except it is for [move constructor](#move-constructor).
+
+**Syntax to define move assignment operator in a class:**
+
+```c++
+className& operator=(const className&& ref_obj)
+{
+    // Body of move assignment operator
+    return *this;
+}
+```
+
+**Sample code line to invoke move assignment operator:**
+
+```c++
+existing_obj = std::move(another_obj); // Invoke move assignment operator
+```
+
+<br>
+
+### Operator Overloading
+
+`Operator Overloading` in C++ is a feature that **allows you to redefine the way operators work for user-defined types (like classes)**.
+
+It enables you to give special meaning to an operator when it is used with objects of a class.
+
+Below are some commonly used operators (for arithmetic, binary, boolen, unary, comparison, compound, function and subscript):
+
+- `+`, `-`, `*`, `/`, `%`
+- `^`, `&`, `|`, `~`
+- `!`
+- `=`, `<` , `>`
+- `==`, `!=`, `>=` `<=`
+- `+=`, `-=`, `*=`, `/=`, `%=`
+- `^=`, `&=`, `|=`
+- `<<`, `>>`
+- `<<=`, `>>=`
+- `&&`, `||`
+- `++`, `--`
+- `,`
+- `->`, `->*`
+- `()`, `[]`
+
+**Syntax of Operator Overloading:**
+
+```c++
+return_type operator op (arguments)
+{
+    // Function body
+}
+```
+
+From the syntax above:
+
+- `<return_type>` is the class name if you are doing in class
+- `op` refers to the operator symbol
+- You can refer to [copy assignment operator](#copy-assignment-operator) and [move assignment operator](#move-assignment-operator) to understand the method of implementation
+
+For more information on operator overloading, may refer to below links:
+
+- <a href="https://www.geeksforgeeks.org/cpp/operator-overloading-cpp/">Operator Overloading in C++</a>
+- <a href="https://en.cppreference.com/w/cpp/language/operators.html">https://en.cppreference.com/w/cpp/language/operators.html</a>
+
+<br>
+
+## `Deconstructors`
+
+Deconstructors are **invoked when an object goes out of scope or when a pointer to an object is deleted**.
+
+We **should not call the deconstructor directly**.
+
+Destructors are used to **clean up the allocated resources**.
+
+The **signature** of the deconstructor **starts with a tidle `~` followed by the class name**, below is the example to define deconstructor in a class.
+
+```c++
+class className
+{
+    public:
+        className() // Constructor
+        {
+            // Body for constructor
+        }
+
+        ~className() // Deconstructor
+        {
+            // Body for Deconstructor
+        }
+};
+```
+
+<br>
+
 ## Appendix
 
 Reference link:
 
 - <a href="https://www.geeksforgeeks.org/cpp/c-classes-and-objects/">C++ Classes and Objects</a>
+- <a href="https://www.geeksforgeeks.org/cpp/difference-between-constructor-and-destructor-in-c/">Difference Between Constructor and Destructor in C++</a>
 - <a href="https://www.geeksforgeeks.org/cpp/constructors-c/">Constructors in C++</a>

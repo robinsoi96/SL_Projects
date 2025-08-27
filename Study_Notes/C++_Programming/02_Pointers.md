@@ -902,6 +902,98 @@ The major errors include:
 
 <br>
 
+### `placement new` operator in C++
+
+Placement new is a variation [new](#new) operator in C++.
+
+Normal `new` does two things:
+
+1) Allocates memory
+2) Constructs an object in allocated memory
+
+`placement new` allows us to separate above two things. In placement new, we can pass a preallocated memory and construct an object in the passed memory
+
+<br>
+
+#### `new` vs `placement new`:
+
+| `new` | `placement new` |
+|---|---|
+| Allocates memory in heap and constructs objects there | Object construction can be done at known address |
+| It is not known that, at what address or memory location it's pointing to | Address of memory location that it's pointing is known |
+| Deallocation is done using `delete` operation when allocation is done by `new` | There is `no placement delete`, but if it is needed, one can write it with the help of [destructor](./07_Classes.md#deconstructors) |
+
+<br>
+
+#### Syntax of `placement new`:
+
+```c++
+// Below is the syntax of placement new:
+// new (address) (data_type) initializer
+
+// From above syntax, we can specify an address where we want a new object of given type to be constructed
+
+// Below lines are sample pseudocode implementing placement new
+
+int x = 10; // Default value of x is 10
+
+int* y = new(&x) int(100); // Without needing to allocate a new memory, x is replaced with value 100 without changing the address
+```
+
+#### How to delete the memory allocated by `placement new`?
+
+The operator delete can only delete the storage created in heap. Therefore, when placement new is used, delete operator cannot be used to delete the storage.
+
+In the case of memory allocation using placement new operator , since it is created in stack the compiler knows when to delete it and it will handle deallocation of the memory automatically. 
+
+If required, one can write it with the help of destructor as shown below.
+
+```c++
+#include <iostream>
+
+class MyClass
+{
+    public:
+        MyClass(int xx) : x{xx} // Constructor
+        {
+            std::cout << "Constructor: " << xx << std::endl;
+        }
+
+        ~MyClass() // Deconstructor
+        {
+            std::cout << "Deconstructor: " << x << std::endl;
+        }
+
+    private:
+        int x;
+};
+
+int main()
+{
+    int x = 10;
+
+    MyClass* obj1 = new(&x) MyClass(x); // Using placement new
+    // Here, invoke constructor
+
+    obj1->~MyClass(); // Invoke deconstructor
+
+    return 0;
+}
+```
+
+**Explanation:** <br> Here the destructor is explicitly called because here it cannot be packaged within the delete operator because delete will need to release the memory which you do not have here and it cannot be implicit as it is a dynamic process which we want to manage yourself. 
+
+<br>
+
+#### Advantages of `placement new` operator over `new` operator
+
+- The address of memory allocation is known before hand.
+- Useful when building a memory pool, a garbage collector or simply when performance and exception safety are paramount.
+- There's no danger of allocation failure since the memory has already been allocated, and constructing an object on a pre-allocated buffer takes less time.
+- This feature becomes useful while working in an environment with limited resources.
+
+<br>
+
 ### Dynamic Memory Allocation in C++ with `Smart Pointers`
 
 A `smart pointer` is a **wrapper over a raw pointer** that **automatically manages memory, ensuring proper deallocation and preventing memory leaks**.

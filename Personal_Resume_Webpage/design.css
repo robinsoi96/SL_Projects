@@ -10,8 +10,8 @@ h2 {
 
 img {
     border: 1px solid;
-    height: auto;
-    width: 200px;
+    height: 200px;
+    width: auto;
     float: right;
     margin-left: 15px;
     margin-right: 15px;

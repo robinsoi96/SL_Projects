@@ -10,3 +10,5 @@ CMake is **widely used for the C and C++** languages, but it may be used to buil
 
 Reference link:
 - <a href="https://cmake.org/cmake/help/latest/">CMake Reference Documentation</a>
+- <a href="https://cmake.org/cmake/help/book/mastering-cmake/">Mastering CMake</a>
+- <a href="https://cmake.org/cmake/help/latest/guide/tutorial/index.html">CMake Tutorial</a>

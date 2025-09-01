@@ -9,6 +9,8 @@ From the sample picture below, the animal type Dog is a class, while a particula
 
 <img src="./images/Classes_and_Object_Concept.png" alt="Simple Concept of Classes and Objects"></img>
 
+For more information on concept of `OOP` in C++, may refer to this <a href="https://www.geeksforgeeks.org/cpp/object-oriented-programming-in-cpp/">link</a>
+
 ## Generic Structure of C++ Class
 
 **Generic syntax to define a class in C++:**
@@ -113,7 +115,7 @@ In short, perspective of 3 different actors:
 - `Derived class` (child class):
 
     - Can see and access only code inside a `public` and `protected` region
-    - **More information on derived class, will be discussed in `inheritance` chapter**
+    - **More information on derived class, will be discussed in [`inheritance`](./08_Inheritance_and_Polymorphism.md#inheritance) chapter**
 
 - `Object` of a class:
 

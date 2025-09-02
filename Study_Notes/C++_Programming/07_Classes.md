@@ -600,15 +600,15 @@ For more information on operator overloading, may refer to below links:
 
 <br>
 
-## `Deconstructors`
+## `Destructors`
 
-Deconstructors are **invoked when an object goes out of scope or when a pointer to an object is deleted**.
+Destructors are **invoked when an object goes out of scope or when a pointer to an object is deleted**.
 
-We **should not call the deconstructor directly**.
+We **should not call the destructor directly**.
 
 Destructors are used to **clean up the allocated resources**.
 
-The **signature** of the deconstructor **starts with a tidle `~` followed by the class name**, below is the example to define deconstructor in a class.
+The **signature** of the destructor **starts with a tidle `~` followed by the class name**, below is the example to define destructor in a class.
 
 ```c++
 class className
@@ -619,9 +619,9 @@ class className
             // Body for constructor
         }
 
-        ~className() // Deconstructor
+        ~className() // Destructor
         {
-            // Body for Deconstructor
+            // Body for Destructor
         }
 };
 ```

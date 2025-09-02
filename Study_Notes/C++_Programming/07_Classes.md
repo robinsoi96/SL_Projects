@@ -630,7 +630,7 @@ class className
 
 ## Appendix
 
-Reference link:
+Reference links:
 
 - <a href="https://www.geeksforgeeks.org/cpp/c-classes-and-objects/">C++ Classes and Objects</a>
 - <a href="https://www.geeksforgeeks.org/cpp/difference-between-constructor-and-destructor-in-c/">Difference Between Constructor and Destructor in C++</a>

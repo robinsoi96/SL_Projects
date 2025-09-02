@@ -757,7 +757,7 @@ class DerivedClass : public BaseClass {};
 
 ## Appendix
 
-Reference link:
+Reference links:
 
 - <a href="https://www.geeksforgeeks.org/cpp/inheritance-in-c/">Inheritance in C++</a>
 - <a href="https://www.geeksforgeeks.org/cpp/cpp-polymorphism/">C++ Polymorphism</a>

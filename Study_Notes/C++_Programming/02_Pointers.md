@@ -1011,7 +1011,7 @@ C++ libraries provide implementations of smart pointers in the following types:
 
 ## Appendix
 
-Reference link as below:
+Reference links:
 
 - <a href="https://youtu.be/zuegQmMdy8M?si=GNMiiWYbrbt3_Ben">Pointers in C/C++ [Full Course]</a>
 - <a href="https://www.geeksforgeeks.org/c/memory-layout-of-c-program/">Memory Layout of C Programs</a>

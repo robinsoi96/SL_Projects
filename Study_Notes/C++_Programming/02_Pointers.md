@@ -1007,6 +1007,149 @@ C++ libraries provide implementations of smart pointers in the following types:
 - `std::shared_ptr`
 - `std::weak_ptr`
 
+**EXTRAS:**
+
+- In C++, `get()` member function of smart pointers is used to **retrieve raw, underlying pointer** that the smart pointer manages.
+- No explicit `delete` operator is needed. Smart pointer will automatically deallocate the memory itself after out of scope
+
+<br>
+
+#### `std::auto_ptr`
+
+Auto Pointer is **deprecated in C++11** and **removed in C++17**.
+
+If still interest to know on implementation of `Auto Pointer`, you may refer this <a href="https://www.geeksforgeeks.org/cpp/auto-ptr-in-cpp/">link</a>.
+
+**EXTRAS:**
+
+- Due to limitations of `std::auto_ptr`, it was removed from C++ and later replace with `std::unique_ptr`
+
+<br>
+
+#### `std::unique_ptr`
+
+Unique pointer **stores one pointer only at a time**.
+
+We **cannot copy `std::unique_ptr`**, but only **allowed to transfer ownership of the object to another `std::unique_ptr` using `std::move()` method**.
+
+**Basic Syntax:**
+
+```c++
+// Methods to declare unique pointer to a simple data type object, e.g. int
+
+// Method 1:
+std::unique_ptr<int> p(new int(123)); 
+
+// Method 2: using std::make_unique function (starting C++14)
+std::unique_ptr<int> p = std::make_unique<int>(123);
+
+// Methods to declare unique pointer from polymorphic classes
+
+// Method 1:
+std::unique_ptr<BaseClass> p (new DerivedClass());
+
+// Method 2: using std::make_unique function (starting C++14)
+std::unique_ptr<BaseClass> p = std::make_unique<DerivedClass>();
+
+// Use std::move function to move from p to q pointer, for example
+
+unique_ptr<int> q = std::move(p); // For simple data type
+
+unique_ptr<BaseClass> q = std::move(p); // For classes
+
+// From std::move function above, 
+// p is set to NULL pointer, while q get the address of pointer p
+
+std::cout << p.get() << std::endl; // Here, it prints 0 because p is NULL pointer
+
+std::cout << q.get() << std::endl; // Here, it prints the previous address of pointer p
+```
+
+<br>
+
+#### `std::shared_ptr`
+
+By using shared pointer, **more than one pointer can point to same object at a time**.
+
+- The object has **shared ownership**
+- The pointed-to-object **gets deleted only when the last of those pointers gets destroyed**
+
+**Basic Syntax:**
+
+```c++
+// Methods to declare shared pointer
+// For simple data type like int
+std::shared_ptr<int> p;
+// For classes
+std::shared_ptr<ClassName> p;
+
+// Initialize shared pointer
+// Example #1:
+std::shared_ptr<int> p (new int(123));
+std::shared_ptr<ClassName> p (new ClassName());
+// Example #2:[Using std::make_shared function]
+std::shared_ptr<int> p = std::make_shared<int>(123);
+std::shared_ptr<ClassName> p = std::make_shared<ClassName>();
+
+// Initialize using existing pointer (or copying pointer)
+std::shared_ptr<ClassName> p (existing_ptr);
+```
+
+**Member Methods of `std::shared_ptr`:**
+
+| Method | Description |
+|:---:|---|
+| `reset()` | Resets the `std::shared_ptr` to empty, releasing ownership of the managed object |
+| `use_count()` | Returns the current reference count, indicating how many `std::shared_ptr` instances shares ownership |
+| `unique()` | Check if there is only one `std::shared_ptr` owning the object <br> (reference count is 1) <br><br> - **TRUE** if reference count is 1 <br> - **FALSE** if reference count is greater than 1 |
+| `get()` | Returns a raw pointer to the managed object <br><br> **Be cautious when using this method**|
+| `swap()`| Swaps the contents (ownership) of two `std::shared_ptr` instances <br><br> E.g. <br> `shr_ptr1.swap(shr_ptr2)` <br><br> From the code statement above, `shr_ptr1` and `shr_ptr2` are swapping content with each other |
+
+<br>
+
+#### `std::weak_ptr`
+
+Weak pointer is a smart pointer that **holds a non-owning reference to an object**.
+
+It is much more **similar to `std::shared_ptr`** except it **will not maintain a reference counter**.
+
+- In this case, a pointer **will not have a stronghold** on the object
+- The reason is to **avoid the circular dependency** created by two or more object pointing to each other using `std::shared_ptr`
+
+**Basic Syntax:**
+
+```c++
+// Declare a weak pointer
+std::weak_ptr<int> p; // For simple data type like int
+std::weak_ptr<ClassName> p ; // For class or struct
+
+// Usually initialize weak pointer with an existing shared pointer
+std::weak_ptr<ClassName> p = sharedPointer;
+```
+
+**`std::weak_ptr` Member Functions:**
+
+| Functions | Description |
+|:---:|---|
+| `reset()` | Clean the `std::weak_ptr` |
+| `swap()` | Swaps the objects managed by `std::weak_ptr` <br><br> E.g. <br> `wk_ptr1.swap(wk_ptr2)` <br><br> From the code statement above, `wk_ptr1` and `wk_ptr2` are swapping content with each other |
+| `expired()` | Check if the resource `std::weak_ptr` pointing to exists or not |
+| `lock()` | If the resource pointed by `std::weak_ptr` exists, this function returns a `std::shared_ptr` with ownership of that resource <br><br> If resource does not exist, it returns default constructed `std::shared_ptr` |
+| `use_count()` | Tells about how many `std::shared_ptr` owns the resource |
+
+**Applications of `std::weak_ptr`:**
+
+1) **Preventing Circular References:**
+
+    - When an object wants to reference another object without owning it, it can `std::weak_ptr`
+    - This ensures that no circular references are created and objects can be safely freed when they are no longer needed
+
+2) **Cache Systems:**
+
+    - Commonly used in cache implementations
+    - Caches often need to temporarily store references to objects without preventing the deletion of those objects when they are no longer in use
+    - `std::weak_ptr` provides an elegant solution for this use case
+
 <br>
 
 ## Appendix

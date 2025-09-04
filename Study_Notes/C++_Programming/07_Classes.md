@@ -135,7 +135,7 @@ class className {
 - Another way to write a class is to write a `struct`, which has all members with `public` access specifier by default
 
 ```c++
-struct className 
+struct structureName 
 {
     // everything in here has public access by default
     // since struct has public access specifier by default

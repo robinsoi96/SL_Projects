@@ -1152,13 +1152,110 @@ std::weak_ptr<ClassName> p = sharedPointer;
 
 <br>
 
+## Using `const` with Pointers
+
+### Pointer to Constant Data
+
+**Syntax:**
+
+```c
+const dataType* pointerName;
+```
+
+Declaring the pointer to constant data ensures that **the data pointed by the pointer cannot be changed** through this pointer.
+
+- We **can change the pointer to point to a different location**
+- We **cannot change the data at the location it points to**
+
+```c++
+// Sample implementation of pointer to constant data
+
+int value = 5;
+const int* ptr = &value;
+
+int anotherValue = 10;
+
+//*ptr = 10; 
+// Line above is not allowed
+
+ptr = &anotherValue; // This is allowed
+
+// Summary:
+// - data in the pointer cannot be changed
+// - address of pointer can be changed
+```
+
+### Constant Pointer
+
+**Syntax:**
+
+```c
+dataType* const  pointerName;
+```
+
+Declaring a constant pointer means **the pointer itself is constant**.
+
+- We **cannot change what it points to after its initialization**
+- We **can modify the data at the location it points to**
+
+```c++
+// Sample implementation of constant pointer
+
+int value = 5;
+int* const ptr = &value;
+
+int anotherValue = 10;
+
+*ptr = 10; // This is allowed
+
+// ptr = &anotherValue; 
+// // Line above is not allowed
+
+// Summary:
+// - data in the pointer can be changed
+// - address of pointer cannot be changed
+```
+
+### Constant Pointer to Constant Data
+
+**Syntax:**
+
+```c++
+const dataType* const pointerName;
+```
+
+Declaring constant pointer to constant data combines the restrictions of the previous two i.e.:
+
+- The **pointer cannot point to a different address**
+- The **data it points to cannot be changed** through it
+
+```c++
+// Sample implementation of constant pointer to constant data
+
+int value = 5;
+const int* const ptr = &value;
+
+int anotherValue = 10;
+
+//*ptr = 10; 
+// // Line above is not allowed
+
+// ptr = &anotherValue; 
+// // Line above is not allowed
+
+// Summary:
+// - data in the pointer cannot be changed
+// - address of pointer cannot be changed
+```
+
 ## Appendix
 
 Reference links:
 
-- <a href="https://youtu.be/zuegQmMdy8M?si=GNMiiWYbrbt3_Ben">Pointers in C/C++ [Full Course]</a>
+- <a href="https://www.youtube.com/watch?v=zuegQmMdy8M">Pointers in C/C++ [Full Course]</a>
 - <a href="https://www.geeksforgeeks.org/c/memory-layout-of-c-program/">Memory Layout of C Programs</a>
 - <a href="https://www.geeksforgeeks.org/c/dynamic-memory-allocation-in-c-using-malloc-calloc-free-and-realloc/">Dynamic Memory Allocation in C</a>
 - <a href="https://www.geeksforgeeks.org/cpp/new-and-delete-operators-in-cpp-for-dynamic-memory/">`new` and `delete` Operators in C++ For Dynamic Memory</a>
 - <a href="https://www.geeksforgeeks.org/cpp/placement-new-operator-cpp/">Placement new operator in C++</a>
 - <a href="https://www.geeksforgeeks.org/cpp/smart-pointers-cpp/">Smart Pointers in C++</a>
+- <a href="https://www.geeksforgeeks.org/cpp/how-to-use-const-with-pointers-in-cpp/">How to use `const` with Pointers in C++?</a>

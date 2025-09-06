@@ -6,9 +6,9 @@
 
 The components of STL are the features provided by STL in C++ that can be classified into 3 types:
 
-- `Containers`: Hold and organize the data
-- `Algorithms`: Perform actions like sorting or searching on the data
-- `Iterators`: Helps go through the data in containers one by one
+- [`Containers`](./12_STL_Containers.md): Hold and organize the data
+- [`Algorithms`](./13_STL_Algorithms.md): Perform actions like sorting or searching on the data
+- [`Iterators`](./14_STL_Iterators.md): Helps go through the data in containers one by one
 
 These components are designed to be **efficient, flexible and reusable**, making them an integral part of modern C++ programming
 

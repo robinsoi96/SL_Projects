@@ -1320,7 +1320,8 @@ std::set<int> varName = {1,2,2,3,4,6,5};
 
         auto it2 = std::next(it1, 2); // Access third element
 
-        auto it3 = s.end(); // Access last element
+        auto it3 = s.rbegin(); // Access last element
+        // end() not recommended, to avoid fragmentation error
 
         std::cout << *it1 << ", " << *it2 << ", " << *it3; // Prints 1,3,5
 
@@ -1400,7 +1401,7 @@ std::set<int> varName = {1,2,2,3,4,6,5};
     - Syntax:
 
     ```c++
-    set_name.erase(new_value); // Remove by value
+    set_name.erase(value); // Remove by value
 
     set_name.erase(iterator); // Remove by position
     // iterator can be i.e. set_name.begin()
@@ -1462,7 +1463,7 @@ Maps are associative containers that **store data as pairs of keys and values**.
 // Declare with default setting (sort data according to keys in ascending order)
 std::map<key_data_type, value_data_type> varName;
 // Equivalent to below, but redundant to state for below sample line:
-// std::set<key_data_type, value_data_type, std::less<key_data_type>> varName;
+// std::map<key_data_type, value_data_type, std::less<key_data_type>> varName;
 
 // If want sort the map in descending order according to keys
 std::map<key_data_type, value_data_type, std::greater<key_data_type>> varName;
@@ -1680,6 +1681,447 @@ int main()
 
 <br>
 
+### Multiset in C++ (`std::multiset`)
+
+Multiset is an associative container **similar to the set**, but it **can store multiple elements with same value**. 
+
+- It is **sorted in increasing order by default**, but it **can be changed to any desired order**
+
+- `<set>` header is needed to be included
+
+- Syntax:
+
+```c++
+// Declare with default setting (sort data in ascending order)
+std::multiset<data_type> varName;
+// Equivalent to below, but redundant to state for below sample line:
+// std::multiset<data_type, std::less<data_type>> varName;
+
+// If want sort the multiset in descending order
+std::multiset<data_type, std::greater<key_data_type>> varName;
+```
+
+<br>
+
+#### Declaration and Initialization of `std::multiset`
+
+```c++
+#include <iostream>
+#include <set>
+
+int main()
+{
+    std::multiset<int> ms1; // Declare a multiset, or create an empty multiset
+
+    std::multiset<int> ms2 = {5,1,2,2}; // Initialize multiset
+    // NOTE: unlike set, multiset can have duplicate values into it
+    // So, from values in ms2 will be: 1,2,2,5 [sort accordingly]
+
+    for (auto i : ms2)
+    {
+        std::cout << i << " ";
+    } // Output ==> 1 2 2 5
+
+    return 0;
+}
+```
+
+<br>
+
+#### Basic Operations in `std::multiset`
+
+1) **Inserting Elements**
+
+    - `insert()` function
+
+        - **Insert elements into a multiset**
+
+        - Syntax:
+
+        ```c++
+        multiset_name.insert(new_value);
+        ```
+
+        - Multiset will automatically keep the elements sorted after inserted
+
+2) **Accessing Elements**
+
+    - We **cannot use an index to get elements like in an array**
+
+    - To reach a certain element, we start from `begin()` and move the iterator forward step by step or use helper functions like `std::next()` or `std::advance()`
+    
+    - But we can easily get the first element with `begin()` and the last element by moving one step back from `end()`
+
+    - Sample code implementation:
+
+    ```c++
+    #include <iostream>
+    #include <set>
+
+    int main()
+    {
+        std::multiset<int> ms = {5,4,3,3,1};
+        // ms value arrangement be like: 1,3,3,4,5
+
+        // Access first element
+        auto it1 = ms.begin();
+
+        // Acess third element (for example)
+        auto it2 = std::next(it1, 2);
+
+        // Access last element
+        auto it3 = ms.rbegin(); // end() not recommended, to avoid fragmentation error
+
+        std::cout << *it1 << " " << *it2 << " " << *it3; // Print 1 3 5
+
+        return 0;
+    }
+    ```
+
+3) **Updating Elements**
+
+    - We **cannot change the value of elements** once they are stored in the set
+
+4) **Finding Elements**
+
+    - `find()` function
+
+        - **Fast search by value**
+
+        - Syntax:
+
+        ```c++
+        multiset_name.find(value_to_find)
+        ```
+
+        - **Returns iterator the element if found, otherwise returns `end()` iterator**
+
+        - Sample code implementation:
+
+        ```c++
+        #include <iostream>
+        #include <set>
+
+        int main()
+        {
+            std::multiset<int> ms = {5,4,3,3,1};
+
+            auto it = ms.find(3)
+
+            if (it != ms.end()){
+                std::cout << *it;
+            } else {
+                std::cout << "Not found";
+            } // Print 3
+
+            return 0;
+        }
+        ```
+
+5) **Traversing**
+
+    - Multisets **can be easily traversed using range-based for loop or using `begin()` and `end()` iterators**
+    
+    - To traverse all the elements with same value(key), use the `std::equal_range()` function- it gives the start and end positions for the specific value. More information on `std::equal_range()` implementation, can refer to this <a href="https://www.geeksforgeeks.org/cpp/equal_range-in-cpp/">link</a>
+
+    - You may refer to example mentioned in [initialization sub-chapter](#declaration-and-initialization-of-stdmultiset)
+
+6) **Deleting Elements**
+
+    - In multiset, elements are removed from a set **using the `erase()` function**
+    
+    - We can erase elements either **by value or by position**
+
+    - Syntax:
+
+    ```c++
+    multiset_name.erase(value); // Remove by value
+    // NOTE: all matched values will be erased as well
+    // For example, if multiset has {1,2,3,3,4} and multiset_name.erase(3) is triggered,
+    // updated multiset will be: {1,2,4}
+
+    multiset_name.erase(iterator); // Remove by position
+    // iterator can be i.e. multiset_name.begin()
+    // To remove 1st element in set (for example)
+    // Even if there's other same value as per pointer by mentioned by the iterator, that other value will not be erased
+    ```
+
+<br>
+
+#### `std::multiset` VS `std::set`
+
+| Feature | `std::set` | `std::multiset` |
+|:---:|---|---|
+| Duplicates | Not allowed (only unique elements) | Allowed (multiple copies allowed) |
+| Order | Elements are sorted | Elements are sorted |
+| Use case | When only unique values are needed | When duplicates are needed |
+| Insertion | Inserts only if element is not present | Inserts elements regardless of duplicates |
+
+<br>
+
+### Multimap in C++ (`std::multimap`)
+
+Multimap is an associative container **similar to map**, but it **can have multiple elements with same keys**. 
+
+- It **stores all the elements in increasing order based on their keys by default** but **can be changed if required**
+
+- `<map>` header is needed to be included
+
+- Syntax:
+
+```c++
+// Declare with default setting (sort data according to keys in ascending order)
+std::multimap<key_data_type, value_data_type> varName;
+// Equivalent to below, but redundant to state for below sample line:
+// std::multimap<key_data_type, value_data_type, std::less<key_data_type>> varName;
+
+// If want sort the map in descending order according to keys
+std::multimap<key_data_type, value_data_type, std::greater<key_data_type>> varName;
+```
+
+<br>
+
+#### Declaration and Initialization of `std::multimap`
+
+```c++
+#include <iostream>
+#include <map>
+
+int main()
+{
+    std::multimap<int, std::string> m1; // Declaration of multimap m1 or creating empty multimap m1
+
+    // Initializing multimap with list
+    std::multimap<int, std::string> m2 = {
+        {1, "Geeks"},
+        {1, "For"},
+        {2, "Geeks"}
+    };
+
+   for (auto el : m2)
+   {
+        std::cout << el.first << " " << el.second << std::endl;
+   } 
+   // NOTE:
+   // .first to access the key of the map
+   // .second to access the value of the map
+   // key value can repeat unlike map
+
+   // Output:
+   /*
+   1 Geeks
+   1 For
+   2 Geeks
+   */
+
+  return 0;
+}
+```
+
+<br>
+
+#### Basic Operations in `std::multimap`
+
+1) **Inserting Elements**
+
+    - A key-value pair **can be inserted into multimap using `insert()` method**
+    
+    - **Insertion using `[] operator` is not valid** because there can be multiple elements with same key
+
+    - Syntax:
+
+    ```c++
+    multimap_name.insert({new_key, new_value});
+    ```
+
+2) **Accessing Elements**
+
+    - Elements are **accessed only through iterators**, using **`->first` for keys** and **`->second` for values**, since `[]` is not available.
+    
+    - You can move iterators with `std::next()` or `std::advance()`, and quickly get the first and last elements using `begin()` and `end()`
+
+    - Sample code implementation to access element:
+
+    ```c++
+    #include <iostream>
+    #include <map>
+
+    int main()
+    {
+        std::multimap<int, std::string> mm = {
+            {1, "Geeks"},
+            {1, "For"},
+            {2, "Geeks"}
+        };
+
+        // Accessing first element
+        auto it1 = mm.begin();
+        std::cout << it1->first << " " << it1->second << std::endl; // Output ==> 1 Geeks
+
+        // Accessing second element
+        auto it2 = std::next(it1,1);
+        std::cout << it2->first << " " << it2->second << std::endl; // Output ==> 1 For
+
+        // Accessing last element
+        auto it3 = mm.rbegin(); // end() not recommended, will cause fragmentation error
+        std::cout << it3->first << " " << it3->second << std::endl; // Output ==> 2 Geeks
+
+        return 0;
+    }
+    ```
+
+3) **Updating Elements**
+
+    - In multimap, the **key of any element cannot be modified** 
+    
+    - But we **can modify the value using the iterator** to that element
+
+    - Sample code implementation to update value:
+
+    ```c++
+    #include <iostream>
+    #include <map>
+
+    int main()
+    {
+        std::multimap<int, std::string> mm = {
+            {1, "Geeks"},
+            {1, "For"},
+            {2, "Geeks"}
+        };
+
+        // Update 2nd element value
+        auto it = std::next(mm.begin(), 1);
+        it->second = "Java";
+        // NOTE: it->first cannot be changed
+
+        for (auto x : mm)
+        {
+            std::cout << x.first << " " << x.second << std::endl;
+        }
+        // Output:
+        /*
+        1 Geeks
+        1 Java
+        2 Geeks
+        */
+
+        return 0;
+    }
+    ```
+
+4) **Traversing**
+
+    - Multimap can be **traversed by either range-based for loop or using `begin()` and `end()` iterators with a loop**
+
+    - Sample code implemetation to traverse using `begin()` and `end()` with a loop:
+
+    ```c++
+    #include <iostream>
+    #include <map>
+
+    int main()
+    {
+        std::multimap<int, std::string> mm = {
+            {1, "Geeks"},
+            {1, "For"},
+            {2, "Geeks"}
+        };
+
+        // Traverse multimap
+        for (auto it = mm.begin(); it != mm.end(); ++it)
+        {
+            std::cout << it->first << " " << it->second << std::endl;
+        }
+        // Output:
+        /*
+        1 Geeks
+        1 For
+        2 Geeks
+        */
+
+        return 0;
+    }
+    ```
+
+    - For other code example, can refer to sample code mentioned in [initialization sub-chapter](#declaration-and-initialization-of-stdmultimap)
+
+5) **Finding Elements**
+
+    - We can quickly **find the first element with a given key using the `find()` method**
+
+    - **If the key isn't found, it returns the `end()` iterator**
+
+    - Sample code implementation to find element:
+
+    ```
+    #include <iostream>
+    #include <map>
+
+    int main()
+    {
+        std::multimap<int, std::string> mm = {
+            {1, "Geeks"},
+            {1, "For"},
+            {2, "Geeks"}
+        };
+
+        // Find element with key 2
+        auto it = mm.find(2);
+
+        std::cout << it->first << " " << it->second; // Output ==> 2 Geeks
+
+        return 0;
+    }
+    ```
+
+    - To **find a specific element among duplicates**, **use the range from `std::equal_range()` to search within that group**. More information on `std::equal_range()` implementation, please refer to this <a href="https://www.geeksforgeeks.org/cpp/equal_range-in-cpp/">link</a>
+
+6) **Deleting Elements**
+
+    - In multimap, elements are removed from a set **using the `erase()` function**
+    
+    - We can erase elements either **by key or by position**
+
+    - Syntax:
+
+    ```c++
+    multimap_name.erase(key); // Remove by key
+    // NOTE: all values in the matched key will be erased as well
+
+    multimap_name.erase(iterator); // Remove by position
+    // iterator can be i.e. multimap_name.begin()
+    // To remove 1st element in set (for example)
+    // Even if there's other values in the same key as per pointer by mentioned by the iterator, that other value in the same key will not be erased
+    ```
+
+**Time Complexity of Operations in `std::multimap`:**
+
+| Operation | Time Complexity |
+|:---:|:---:|
+| `insert()` | O (log n) |
+| `erase()` | O(log n) |
+| Access an element at any position | O(n) |
+| Find an element by key | O(n) |
+| Find the number of elements with a specific key | O(log n) |
+| Traverse the multimap | O(n) |
+
+<br>
+
+#### `std::multimap` VS `std::map`
+
+| Feature | `std::map` | `std::multimap` |
+|:---:|---|---|
+| Key Uniqueness | Keys are unique | Duplicate keys are allowed |
+| Access | Supports `[]` and `at()` | Does not support `[]` or `at()`|
+| Order | Elements sorted by key | Elements sorted by key |
+| Storage | One value per key | Multiple values per key |
+| Use Case | When ech key maps to one value | When keys can map to multiple values |
+
+More information between the comparison of both, can refer to this <a href="https://www.geeksforgeeks.org/cpp/multimap-vs-map-in-c-stl-with-examples/">link</a>.
+
+<br>
+
 ## `Unordered Associative Containers`
 
 <br>
@@ -1700,3 +2142,5 @@ Reference links:
 - <a href="https://www.geeksforgeeks.org/cpp/forward-list-c-set-1-introduction-important-functions/">`Forward List` in C++ STL</a>
 - <a href="https://www.geeksforgeeks.org/cpp/set-in-cpp-stl/">`Set` in C++ STL</a>
 - <a href="https://www.geeksforgeeks.org/cpp/map-associative-containers-the-c-standard-template-library-stl/">`Map` in C++ STL</a>
+- <a href="https://www.geeksforgeeks.org/cpp/multiset-in-cpp-stl/">`Multiset` in C++ STL</a>
+- <a href="https://www.geeksforgeeks.org/cpp/multimap-associative-containers-the-c-standard-template-library-stl/">`Multimap` in C++ STL</a>

@@ -9,10 +9,10 @@ Containers are **data structures** used to **store objects and data** according 
 
 Containers can be further **classified into 4 types**:
 
-- `Sequence Containers`
-- `Container Adaptors`
-- `Associative Containers`
-- `Unordered Associated Containers`
+- [`Sequence Containers`](#sequence-containers)
+- [`Associative Containers`](#associative-containers)
+- [`Unordered Associative Containers`](#unordered-associative-containers)
+- [`Container Adapters`](#container-adapters)
 
 <br>
 
@@ -1235,6 +1235,459 @@ std::forward_list<data_type> varName = {...};
 
 <br>
 
+## `Associative Containers`
+
+Associative containers **store data in some sorted order**
+
+- It provides fast search, insert and delete in O(log n) time by using balanced trees like <a href="https://www.geeksforgeeks.org/dsa/introduction-to-red-black-tree/">Red Black Trees</a>
+
+| Container Name | Description |
+|:---:|---|
+| `std::set` | Collection of unique elements sorted on the basis of their values |
+| `std::map` | Collection of key-value pairs sorted on the basis of the keys where no two pairs have same keys |
+| `std::multiset` | Collection of elements sorted on the basis of their values but allows multiple copies of values |
+| `std::multimap` | Collection of key-value pairs sorted on the basis of the keys where multiple pairs can have same keys |
+
+<br>
+
+### Set in C++ (`std::set`)
+
+Set is assciative container which **stores unique elements in some sorted order**.
+
+- By default, it is sorted ascending order of the keys, but this can be changed as per requirement
+
+    ```c++
+    // Declare with default setting (sort in ascending order)
+    std::set<data_type> varName;
+    // Equivalent to below, but redundant to state for below sample line:
+    // std::set<data_type, std::less<data_type>> varName;
+
+    // If want sort the set in descending order
+    std::set<data_type, std::greater<data_type>> varName;
+    ```
+
+- Method to initialize `std::set`:
+
+```c++
+std::set<data_type> varName = {...};
+
+// NOTE: you can write repeated values in set while initialize, but the repeat values initialize will only have 1 unit in the set
+
+// Example
+std::set<int> varName = {1,2,2,3,4,6,5};
+// From example above, varName will only hold "1,2,3,4,5,6" in order
+```
+
+- `<set>` header is needed to be included
+
+<br>
+
+#### Basic Operations in `std::set`
+
+1) **Inserting Elements**
+
+    - In set, elements are added **using `insert()` or `emplace()` function**
+
+    - Syntax:
+
+    ```c++
+    set_name.insert(new_value);
+
+    set_name.emplace(new_value);
+    ```
+
+    - **If the element already exists in the set, it will not be added again in the set**
+
+2) **Accessing Elements**
+
+    - We **cannot access elements using an index like in arrays or vectors**
+
+    - Instead, we use an iterator starting from `begin()` and move it using ++ or functions like `std::next()` or `std::advance()` to reach a specific position.
+    
+    - This is because sets store elements in sorted order without direct indexing
+
+    - Sample code to access specific element in set:
+
+    ```c++
+    #include <iostream>
+    #include <set>
+
+    int main()
+    {
+        std::set<int> s = {1,2,3,4,5};
+
+        auto it1 = s.begin(); // Access first element
+
+        auto it2 = std::next(it1, 2); // Access third element
+
+        auto it3 = s.end(); // Access last element
+
+        std::cout << *it1 << ", " << *it2 << ", " << *it3; // Prints 1,3,5
+
+        return 0;
+    }
+    ```
+
+3) **Updating Elements**
+
+    - We **cannot change the value of elements** once they are stored in the set
+
+4) **Finding Elements**
+
+    - `find()` function
+
+        - Provide **fast search of the value in set**
+
+        - Returns iterator the element if found, else returns `end()` iterator
+
+        - Sample code implementation:
+
+        ```c++
+        #include <iostream>
+        #include <set>
+
+        int main()
+        {
+            std::set<int> s = {1,2,3,4,5};
+
+            // Finding 3
+            auto it = s.find(3);
+            
+            // Syntax of find() function for set:
+            // set_name.find(value_to_find)
+
+            if (it != s.end())
+            {
+                std::cout << *it;
+            } else {
+                std::cout << "Element not found";
+            } // Print 3
+
+            return 0;
+        }
+        ```
+
+5) **Traversing**
+
+    - Just like other containers, sets can be easily traversed using range-based for loop or using `begin()` and `end()` iterators
+
+    - Sample implementation:
+
+    ```c++
+    #include <iostream>
+    #include <set>
+
+    int main()
+    {
+        std::set<int> s = {5,3,4,1,2};
+
+        // Traversing
+        for(auto it = s.begin(); it != s.end(); ++it)
+        {
+            std::cout << *it << " ";
+        } // Print 1 2 3 4 5
+
+        return 0;
+    }
+    ```
+
+6) **Deleting Elements**
+
+    - In set, elements are removed from a set **using the `erase()` function**
+    
+    - We can erase elements either **by value or by position**
+
+    - Syntax:
+
+    ```c++
+    set_name.erase(new_value); // Remove by value
+
+    set_name.erase(iterator); // Remove by position
+    // iterator can be i.e. set_name.begin()
+    // To remove 1st element in set (for example)
+    ```
+
+7) **Check if set is empty**
+
+    - `empty()` function
+
+        - Checks whether the set has any elements
+
+        - **Returns true if the set is empty, otherwise false**
+
+        - Syntax:
+
+        ```c++
+        set_name.empty()
+        ```
+
+8) **Check size of set**
+
+    - `size()` function
+
+        - **Check the size of set**, but only **reflects the count of distinct unique values**
+
+        - Syntax:
+
+        ```c++
+        set_name.size()
+        ```
+
+**Time Complexity of the Operations above:**
+
+| Operation | Time Complexity |
+|:---:|:---:|
+| `insert()` / `emplace()`| O(log n) |
+| `erase()` | O(log n) |
+| Find the largest element <br><br> For more information on the method, can search from internet | O(1) |
+| Find the smallest element <br><br> For more information on the method, can search from internet | O(1) |
+| `find()` | O(log n) |
+| Traverse the set | O(n) |
+
+<br>
+
+### Map in C++ (`std::map`)
+
+Maps are associative containers that **store data as pairs of keys and values**.
+
+- **Each key is unique**
+
+- **Data is automatically sorted by keys in ascending order**
+
+- `<map>` header is needed to be included
+
+- Syntax:
+
+```c++
+// Declare with default setting (sort data according to keys in ascending order)
+std::map<key_data_type, value_data_type> varName;
+// Equivalent to below, but redundant to state for below sample line:
+// std::set<key_data_type, value_data_type, std::less<key_data_type>> varName;
+
+// If want sort the map in descending order according to keys
+std::map<key_data_type, value_data_type, std::greater<key_data_type>> varName;
+```
+
+<br>
+
+#### Declaration and Initialization of `std::map`
+
+```c++
+#include <iostream>
+#include <map>
+
+int main()
+{
+    std::map<int, std::string> m1; // Declaration of map m1 or creating empty map m1
+
+    // Initializing map with list
+    std::map<int, std::string> m2 = {
+        {1, "Geeks"},
+        {2, "For"},
+        {3, "Geeks"}
+    };
+
+    // Similar method as above method will be:
+    /*
+    std::map<int, std::string> m2;
+    m2[1] = "Geeks";
+    m2[2] = "For";
+    m2[3] = "Geeks";
+    */
+
+   for (auto el : m2)
+   {
+        std::cout << el.first << " " << el.second << std::endl;
+   } 
+   // NOTE:
+   // .first to access the key of the map
+   // .second to access the value of the map
+
+   // Output:
+   /*
+   1 Geeks
+   2 For
+   3 Geeks
+   */
+
+  return 0;
+}
+```
+
+<br>
+
+#### Basic Operations in `std::map`
+
+1) **Inserting Elements**
+
+    - `[] operator`
+
+        - Syntax:
+
+        ```c++
+        map_name[new_key] = new_value;
+        // NOTE:
+        // If new_key exists, it will act as updating the value on that key
+        ```
+
+    - `insert()` function
+
+        - Syntax:
+
+        ```c++
+        map_name.insert({new_key, new_value});
+        // NOTE:
+        // If new_key exists, nothing will be done, because the key already exists.
+        // In short, inserting value is not done
+        ```
+
+2) **Accessing Elements**
+
+    - `[] operator` (**Not recommended**)
+
+        - Not recommended, because **if the key doesn't exist, it adds a new entry with a default value**
+
+        - Syntax:
+
+        ```c++
+        map_name[key_to_find]
+        // If exist, show the value at the key
+        // Else, it will create a new default value at the key, and show default value
+        ```
+
+    - `at()` fucntion (**Recommended**)
+
+        - **Check or get a value without creating a new element**
+
+        - Syntax:
+
+        ```c++
+        map_name.at(key_to_find)
+        // If exist, show the value at the key
+        // Else, throw exception of std::out_of_range
+        ```
+
+3) **Updating Elements**
+
+    - The **key of an already present elements cannot be modified in the map**
+    
+    - But the **associated value can be changed** by first accessing the element and then **using assignment operator to change the value**
+
+    - Syntax to update value:
+
+    ```
+    // Method 1: use [] operator
+    map_name[key] = update_value;
+
+    // Method 2: use at() function
+    map_name.at(key) = update_value;
+    ```
+
+4) **Finding Elements**
+
+    - Map provides **fast element search by key using the `find()`** member function
+    
+    - This function **returns iterator the element if found, otherwise returns `end()` iterator**
+
+    - Sample code implementation:
+
+    ```c++
+    #include <iostream>
+    #include <map>
+
+    int main()
+    {
+        std::map<int, std::string> m1 = {
+            {1, "Geeks"},
+            {2, "For"},
+            {3, "Geeks"}
+        };
+
+        // Use iterator to find element with key 2
+        auto it = m1.find(2);
+
+        if (it != m1.end()){
+            std::cout << it->first << " " << it->second;
+        } else {
+            std::cout << "Key not found";
+        } // Output ==> 2 For
+        // ->first & ->second are used, because iterator is pointer
+        // -> to deference
+
+        return 0;
+    }
+    ```
+
+5) **Traversing**
+
+    - Maps can be easily **traversed by using either range based for loop or using `begin()` and `end()` iterator with traditional loops**
+
+    - Besides the example from [initialization sub-chapter](#declaration-and-initialization-of-stdmap), below sample code uses `begin()` and `end()` to traverse
+
+    ```c++
+    #include <iostream>
+    #include <map>
+
+    int main()
+    {
+        std::map<int, std::string> m1 = {
+            {1, "Geeks"},
+            {2, "For"},
+            {3, "Geeks"}
+        };
+
+        // Traversing using iterators
+        for (auto it = m1.begin(); it != m1.end(); ++it)
+        {
+            std::cout << it->first << " " << it->second << std::endl;
+        }
+        // Output:
+        /*
+        1 Geeks
+        2 For
+        3 Geeks
+        */
+
+       return 0;
+    }
+    ```
+
+6) **Deleting Elements**
+
+    - `erase()` function
+
+        - Syntax:
+
+        ```c++
+        // Delete by passing the key
+        map_name.erase(key);
+
+        // Delete by passing an iterator
+        map_name.erase(iterator);
+        // Example iterator can be: map_name.begin() [to delete first element]
+        ```
+
+**Time Complexity of Operations in `std::map`:**
+
+| Operation | Time Complexity |
+|:---:|:---:|
+| Insert an element | O(log n) |
+| Delete an element by key | O(log n) |
+| Access element by key | O(log n) |
+| `find()` | O(log n) |
+| Update element by key | O(log n) |
+| Traverse the map | O(n) |
+
+<br>
+
+## `Unordered Associative Containers`
+
+<br>
+
+## `Container Adapters`
+
+<br>
+
 ## Appendix
 
 Reference links:
@@ -1245,3 +1698,5 @@ Reference links:
 - <a href="https://www.geeksforgeeks.org/cpp/deque-cpp-stl/">`Deque` in C++ STL</a>
 - <a href="https://www.geeksforgeeks.org/cpp/list-cpp-stl/">`List` in C++ STL</a>
 - <a href="https://www.geeksforgeeks.org/cpp/forward-list-c-set-1-introduction-important-functions/">`Forward List` in C++ STL</a>
+- <a href="https://www.geeksforgeeks.org/cpp/set-in-cpp-stl/">`Set` in C++ STL</a>
+- <a href="https://www.geeksforgeeks.org/cpp/map-associative-containers-the-c-standard-template-library-stl/">`Map` in C++ STL</a>

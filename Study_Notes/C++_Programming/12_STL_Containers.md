@@ -426,6 +426,815 @@ For more information on implementation of multidimensional vector, please refer 
 
 <br>
 
+### Deque in C++ (`std::deque`)
+
+Deque stands for `Double-Ended Queue`.
+
+It is a sequence container that allows you to **add or remove elements efficiently from both the front and the back**.
+
+- Deque can **act as both `stack` and `Queue`**
+
+- It is useful in many problems where we need to have a subset of all operations also like insert / remove at front and insert / remove at the end
+
+- It is typically implemented either using a doubly linked list or circular array
+
+- `<deque>` header is needed to be included
+
+<br>
+
+#### Declaration and Initialization of `std::deque`
+
+```c++
+// Declare deque
+std::deque<data_type> varName;
+
+// Initialize deque
+std::deque<data_type> varName = {...};
+```
+
+<br>
+
+#### Basic Operations with `std::deque`
+
+1) **Inserting Elements**
+
+    - `push_back()` function
+
+        - **Add an element at the end of the deque**
+
+        - Useful for appending values
+
+        - Syntax:
+
+        ```c++
+        deque_name.push_back(new_value);
+        ```
+
+    - `push_front()` function
+
+        - **Adds and element at the front of the deque**
+
+        - Help insert values at the beginning efficiently
+
+        - Syntax:
+
+        ```c++
+        deque_name.push_front(new_value);
+        ```
+
+2) **Deletion**
+
+    - `pop_back()` function
+
+        - **Removes the last element from the deque**
+
+        - Used when you want to delete from the back
+
+        - Syntax:
+
+        ```c++
+        deque_name.pop_back();
+        ```
+
+    - `pop_front()` function
+
+        - **Removes the first element from the deque**
+
+        - Efficient way to remove from the front
+
+        - Syntax:
+
+        ```c++
+        deque_name.pop_front();
+        ```
+
+3) **Accessing Elements**
+
+    - `front()` function
+
+        - **Returns the first element**
+
+        - Does not remove it
+
+        - Syntax:
+
+        ```c++
+        deque_name.front()
+        ```
+
+    - `back()` function
+
+        - **Returns the last element**
+
+        - Useful to check the end value
+
+        - Syntax:
+
+        ```c++
+        deque_name.back()
+        ```
+    
+    - Besides the above, you can access elements in a vector using either **`operator[]` for direct access** or **`at()` function for bounds-checked access**
+
+    - Syntax of accessing element in vector using `operator[]`:
+
+    ```c++
+    deque_name[index]
+    ```
+
+    - Syntax of accessing element in vector using `at()` function:
+
+    ```c++
+    deque_name.at(index)
+    ```
+
+    - Both return the element at the mentioned index position, but `at()` throws an exception if the index position given is out of range
+
+    - It takes constant time O(1) on average, so it's very fast
+
+4) **Check size of deque**
+
+    - `size()` function
+
+        - **Returns the number of elements**
+
+        - Helps in loops or checking length
+
+        - Syntax:
+
+        ```c++
+        deque_name.size()
+        ```
+
+5) **Check if deque is empty**
+
+    - `empty()`
+
+        - **Returns true if deque is empty**
+
+        - Useful for errors before accessing
+
+        - Syntax:
+
+        ```c++
+        deque_name.empty()
+        ```
+
+6) **Clear**
+
+    - `clear()`
+
+        - **Removes all elements from deque**
+
+        - Deque becomes empty after this
+
+        - Syntax:
+
+        ```c++
+        deque_name.clear();
+        ```
+
+**Time Complexity for Operations:**
+
+| Operation | Time Complexity |
+|:---:|:---:|
+| `push_back()` | O(1) amortized |
+| `push_front()` | O(1) amortized |
+| Insert at arbitary position | O(n) |
+| `pop_back()` | O(1) amortized |
+| `pop_front()` | O(1) amortized |
+| Remove from arbitary position | O(n) |
+| Access elements at any position using index | O(n) |
+| Update elements at any position using index | O(n) |
+| Iterate the deque | O(n) |
+
+**NOTE:**
+
+- For other operations in `std::deque` which are not mentioned, may refer to this <a href="https://www.studyplan.dev/pro-cpp/deque#doubleended-queues-using-stddeque">link</a>
+
+<br>
+
+### List in C++ (`std::list`)
+
+List container **implements a doubly linked list** in which each element contains the address of next and previous element in the list.
+
+- It **stores data in non-contiguous memory**, hence providing fast insertion and deletion once the position of element is known
+
+- `<list>` header is needed to be included
+
+<br>
+
+#### Declaration and Initialization of `std::list`
+
+```c++
+// Declare a list
+std::list<data_type> varName;
+
+// Initialize list where all elements with assigned values
+std::list<data_type> varName = {...};
+
+// Initialize all elements in the list, where mentioning the size and the common value
+std::list<data_type> varName(size, common_value);
+```
+
+<br>
+
+#### Basic Operations in `std::list`
+
+1) **Inserting Elements**
+
+    - `insert()` function
+
+        - **Used to insert the elements at any position of list**
+
+        - Syntax:
+
+        ```c++
+        // Insert number of new values starting from the mentioned index position
+        list_name.insert(index_position, number_of_new_value, new_value);
+
+        // Insert 1 new value starting from the mentioned index position
+        list_name.insert(index_position, new_value);
+        ```
+
+        - Time Complexity - Linear O(N)
+    
+    - `push_front()` function
+
+        - **Insertion at beginning**
+
+        - Syntax:
+
+        ```c++
+        list_name.push_front(new_value);
+        ```
+
+    - `push_back()` function
+
+        - **Insertion at the end**
+
+        - Syntax:
+
+        ```c++
+        list_name.push_back(new_value);
+        ```
+
+2) **Accessing Elements**
+
+    - Unlike vectors, lists **do not support random access**
+
+    - However, first and last elements can be quickly accessed using `front()` and `back()` methods respectively
+
+        - `front()` function
+
+            - **Access first element**
+
+            - Syntax:
+
+            ```c++
+            list_name.front()
+            ```
+
+        - `back()` function
+
+            - **Access last element**
+
+            - Syntax:
+
+            ```c++
+            list_name.back()
+            ```
+        
+        - If you want to access other element besides first and last element, you need to use `std::next()` function to move the `begin()` iterator as sample code shown below
+
+        ```c++
+        #include <iostream>
+        #include<list>
+
+        int main() 
+        {
+            std::list<int> l = {1, 3, 4, 2, 5};
+
+            // Accessing first and last elements
+            std::cout << l.front() << std::endl; // Print 1
+            std::cout << l.back() << std::endl; // Print 5
+    
+            // Access third element
+            std::cout << *std::next(l.begin(), 2); // Print 4
+
+            return 0;
+        }
+        ```
+
+3) **Updating Elements**
+
+    - If you are using `front()` or `back()` function to access the element, you can straight away update directly using reference as below
+
+    ```c++
+    // For example, if using front() or back() to access list
+    // You can update the new value as below
+    list_name.front() = new_value; 
+    // First element of list is updated with new value directly
+    ```
+
+    - However, if you are using iterator to access other element which is not first or last element, you need to dereference the iterator to update the value, because iterator is a pointer as per mentioned in [iterators chapter](./14_STL_Iterators.md)
+
+    ```c++
+    #include <iostream>
+    #include <list>
+
+    int main()
+    {
+        std::list<int> l = {1,2,3,4,5};
+
+        // Move iterator from the first position by two steps
+        auto it = l.begin();
+        std::advance(it, 2);
+
+        *it = 10; // Update l[2] = 10
+        // Dereference is needed for iterator, because it is a pointer
+
+        for (auto i : l)
+        {
+            std::cout << i << " ";
+        } // Output ==> 1 2 10 4 5
+
+        return 0;
+    }
+    ```
+
+4) **Finding Elements**
+
+    - To find any particular element in the list, the `std::find()` function from `<algorithm>` header can be used
+
+    - Sample code to implement `std::find()` function:
+
+    ```c++
+    #include <iostream>
+    #include <algorithm>
+    #include <list>
+
+    int main() 
+    {
+        std::list<int> l = {1, 3, 4, 2, 5};
+
+        // Finding 4
+        auto it = std::find(l.begin(), l.end(), 4);
+
+        if (it != l.end()){
+            std::cout << *it;
+        } else {
+            std::cout << "Element Not Found!";
+        } // Print 4
+
+        return 0;
+    }
+    ```
+
+5) **Traversing**
+
+    - A list can be **easily traversed using `begin()` and `end()` iterators** with any loop
+    
+    - Just move the begin() iterator till it is not equal to the end() iterator and access elements in each iteration
+
+    - Sample code as below:
+
+    ```c++
+    #include <iostream>
+    #include<list>
+
+    int main()
+    {
+        std::list<int> l = {1, 3, 4, 2, 5};
+
+        // Traversing using iterators
+        for (auto it = l.begin(); it != l.end(); ++it)
+        {
+            std::cout << *it << " ";
+        } // Output ==> 1 3 4 2 5
+        
+        return 0;
+    }
+    ```
+
+    - Other method to traverse is to **use the range based for loop** like we have done in previous examples
+
+6) **Deleting Elements**
+
+    - `pop_back()` function
+
+        - **Quickly delete the last element**
+
+        - Syntax:
+
+        ```c++
+        list_name.pop_back();
+        ```
+
+    - `pop_front()` function
+
+        - **Quickly delete the first element**
+
+        - Syntax:
+
+        ```c++
+        list_name.pop_front();
+        ```
+
+    - `erase()` function
+
+        - **NOTE:** you need to use iterator to assist to delete specific position of element in list using `erase()` function
+
+        - Syntax:
+
+        ```c++
+        // Remove single element which the iterator is pointing to
+        vector_name.erase(iterator);
+
+        // Erase range of elements starting one iterator to another iterator
+        vector_name.erase(iterator1, iterator2);
+        ```
+
+<br>
+
+**Time Complexity based on Operations above:**
+
+| Operation | Time Complexity |
+|:---:|:---:|
+| `push_back()` | O(1) |
+| `push_front()` | O(1) |
+| `pop_back()` | O(1) |
+| `pop_front()` | O(1) |
+| `front()` | O(1) |
+| `back()` | O(1) |
+| Access element at any position | O(n) |
+| Find element by value | O(n) |
+| Traversing the list | O(n) |
+
+<br>
+
+#### Other Member Functions of `std::list`
+
+1) `size()` function
+
+    - **Returns the number of element in the list**
+
+    - Syntax:
+
+    ```c++
+    list_name.size()
+    ```
+
+2) `empty()` function
+
+    - **Checks if the list is empty**
+
+    - Syntax:
+
+    ```c++
+    list_name.empty()
+    ```
+
+    - Time Complexity: O(1)
+
+    - Auxiliary Space: O(1)
+
+3) `rbegin()` function
+
+    - **Returns a reverse iterator pointing to the last element of the list**
+
+    - Syntax:
+
+    ```c++
+    list_name.rbegin()
+    // Pointing to list_name[n]
+    ```
+
+    - Sample pseudocode implementation:
+
+    ```c++
+    std::list<int> l = {1,2,3,4,5};
+
+    auto it = l.rbegin();
+
+    std::cout << *it; // Print 5
+    ```
+
+4) `rend()` function
+
+    - **Returns a reverse iterator pointing to the element before the first element of the list**
+
+    - Syntax:
+
+    ```c++
+    list_name.rend()
+    // Pointing to list_name[-1]
+    ```
+
+    - Sample pseudocode implementation:
+
+    ```c++
+    std::list<int> l = {1,2,3,4,5};
+
+    auto it = l.rend();
+
+    std::cout << *it; // Print 5
+    ```
+
+5) `clear()` fucntion
+
+    - **Removes all elements from the list**
+
+    - Syntax:
+
+    ```c++
+    list_name.clear();
+    ```
+
+    - Time Complexity: O(n)
+    
+    - Auxiliary Space: O(1)
+
+<br>
+
+### Forward List in C++ (`std::forward_list`)
+
+Forward_list container provides the **implementation of singly linked list** data structure.
+
+- It **stores data in non-contiguous memory** where each element points to the next element in the sequence
+
+- This makes insertion and deletion faster once the position of element is known
+
+- `<forward_list>` header is needed to be included
+
+<br>
+
+#### Declaration and Initialization of `std::forward_list`
+
+```c++
+// Declare forward list
+std::forward_list<data_type> varName;
+
+// Initialize all elements in forward list, given the size and common value
+std::forward_list<data_type> varName(size, common_value);
+
+// Initialize forward list where all elements values are assigned accordingly
+std::forward_list<data_type> varName = {...};
+```
+
+<br>
+
+#### Basic Operations in `std::forward_list`
+
+1) **Accessing Elements**
+
+    - Forward list's elements **cannot be accessed using indices like arrays or vectors**
+
+    - We **have to go through the list sequentially from the start to the desired position** to access it
+    
+    - This can be done by incrementing `begin()` iterator, but it is better to use `std::next()` or `std::advance()` function, as sample below
+
+    ```c++
+    #include <iostream>
+    #include <forward_list>
+
+    int main()
+    {
+        std::forward_list<int> fl = {1,2,3,4};
+
+        // Access 3rd element
+        auto it = std::next(fl.begin(), 2);
+        std::cout << *it; // Print 3
+
+        return 0;
+    }
+    ```
+
+    - However, first element of the list can be easily accessed by using `front()` function as the syntax below
+
+    ```c++
+    forward_list_name.front()
+    ```
+
+2) **Inserting Elements**
+
+    - `insert_after()` function
+
+        - **Requires iterator after which the element is to be inserted**
+
+        ```c++
+        // Sample implementation of insert_after()
+
+        #include <iostream>
+        #include <forward_list>
+
+        int main()
+        {
+            std::forward_list<int> fl = {1,2,3,4};
+
+            // For example, insert value 6 after the second element
+            auto it = fl.begin();
+            std::advance(it, 1);
+            fl.insert_after(it, 5);
+
+            // Syntax of insert_after():
+            // forward_list_name.insert_after(iterator, new_value)
+            // Explanation: new value is inserted after the index position of the forward list where iterator is pointing to
+
+            for (auto x : fl)
+            {
+                std::cout << x << " ";
+            } // Output ==> 1 2 5 3 4
+
+            return 0;
+        }
+        ```
+
+        - More information on syntax of `insert_after()`, may refer to this <a href="https://www.geeksforgeeks.org/cpp/forward_list-insert_after-function-in-c-stl/">link</a>
+
+    - `push_front()` function
+
+        - **Fast insertion at the front**
+
+        - Syntax:
+
+        ```c++
+        forward_list_name.push_front(new_value)
+        ```
+
+3) **Updating Elements**
+
+    - Sample code to update element
+
+    ```c++
+    #include <iostream>
+    #include <forward_list>
+
+    int main()
+    {
+        std::forward_list<int> fl = {1,2,3,4};
+
+        // Use front() to update first element value
+        fl.front() = 7;
+
+        // Use iterator to update other element's value
+        // Below is the example, update 3rd element value
+        auto it = std::next(fl.begin(), 2);
+        *it = 9;
+
+        for (auto x : fl)
+        {
+            std::cout << x << " ";
+        } // Output ==> 7 2 9 4
+
+        return 0;
+    }
+    ```
+
+4) **Finding Elements**
+
+    - The forward list **does not provide any member function to search for an element**, but we **can use the `find()` algorithm** to find any given value, as sample code below
+
+    ```c++
+    #include <iostream>
+    #include <forward_list>
+    #include <algorithm> // for std::find()
+
+    int main()
+    {
+        forward_list<int> fl = {1,2,3,4};
+
+        // Finding 3
+        auto it = std::find(fl.begin(), fl.end(), 3);
+
+        // EXTRAS on std::find()
+        // Syntax:
+        // std::find(starting_iterator, ending_iterator, value_to_find)
+        // If found, return the value to find
+        // If not found, return the end iterator
+
+        if (it != fl.end())
+        {
+            std::cout << *it;
+        } else{
+            std::cout << "Element not found";
+        } // Output ==> 3
+
+        return 0;
+    }
+    ```
+
+5) **Traversing**
+
+    - A forward list can be traversed using `begin()` and `end()` iterators with a loop, but we **can only move forward and not backward**
+
+6) **Deleting Elements**
+
+    - `erase_after()` function
+
+        - **Requires iterator before which the element is to be deleted**
+
+        ```c++
+        // Sample implementation of erase_after()
+
+        #include <iostream>
+        #include <forward_list>
+
+        int main()
+        {
+            std::forward_list<int> fl = {1,2,3,4};
+
+            // For example, delete value of the third element
+            auto it = fl.begin();
+            std::advance(it, 1);
+            fl.erase_after(it);
+
+            // Syntax of erase_after():
+            // forward_list_name.erase_after(iterator)
+            // Explanation: The value after the element where iterator is pointing to the forward list is deleted
+
+            for (auto x : fl)
+            {
+                std::cout << x << " ";
+            } // Output ==> 1 2 4
+
+            return 0;
+        }
+        ```
+
+        - More information on syntax of `erase_after()`, may refer to this <a href="https://www.geeksforgeeks.org/cpp/forward_listclear-forward_listerase_after-c-stl/">link</a>
+    
+    - `pop_front()` function
+
+        - **Fast deletion from the front**
+
+        - Syntax:
+
+        ```c++
+        forward_list_name.pop_front();
+        ```
+
+7) **Size of Forward List**
+
+    - Forward_list **does not have a built-in `size()` function**. 
+    
+    - To find its size, we **need to manually count the elements by traversing it with a loop or using `std:: distance`** as the sample code below
+
+    ```c++
+    #include <iostream>
+    #include <forward_list>
+    #include <iterator> // For std::distance
+
+    int main()
+    {
+        std::forward_list<int> fl = {1,2,3,4};
+
+        // Use std::distance to calculate size by counting the elements
+        int size = std::distance(fl.begin(), fl.end());
+        std::cout << size; // Returns 4
+
+        return 0;
+    }
+    ```
+
+8) **Check if forward list is empty**
+
+    - `empty()` function
+
+        - **Returns true if the list is empty and false otherwise**, allowing to quickly verifying if the container has no data
+
+        - Syntax:
+
+        ```c++
+        forward_list_name.empty()
+        ```
+
+**Time Complexity based on Operations above:**
+
+| Operation | Time Complexity |
+|:---:|:---:|
+| `front()` | O(1) |
+| Access n<sup>th</sup> element | O(n) |
+| `push_front()` | O(1) |
+| `insert_after()` | O(n) |
+| `pop_front()` | O(1) |
+| `erase_after()` | O(n) |
+| Traversal | O(n) |
+
+<br>
+
+#### `std::forward_list` VS `std::list`
+
+| Feature | `std::forward_list` | `std::list` |
+|:---:|---|---|
+| Type of linked list | Singly linked list | Doubly linked list |
+| Traversal | Can only traverse forward | Can traverse both forward and backward |
+| Memory usage | Uses less memory (only one pointer per node) | Uses more memory (two pointers per node) |
+| Insertion / Deletion | Fast insertion and deletion, but only at or after a given position | Fast insertion and deletion anywhere (before or after a position) |
+| Functions supported | Limited compared to list (no size(), no reverse iterators) | More complete interface including size(), reverse(), bidirectional iterators. |
+
+<br>
+
 ## Appendix
 
 Reference links:
@@ -433,3 +1242,6 @@ Reference links:
 - <a href="https://www.geeksforgeeks.org/cpp/containers-cpp-stl/">Containers in C++ STL</a>
 - <a href="https://www.geeksforgeeks.org/cpp/array-class-c/">`Array` class in C++</a>
 - <a href="https://www.geeksforgeeks.org/cpp/vector-in-cpp-stl/">`Vector` in C++ STL</a>
+- <a href="https://www.geeksforgeeks.org/cpp/deque-cpp-stl/">`Deque` in C++ STL</a>
+- <a href="https://www.geeksforgeeks.org/cpp/list-cpp-stl/">`List` in C++ STL</a>
+- <a href="https://www.geeksforgeeks.org/cpp/forward-list-c-set-1-introduction-important-functions/">`Forward List` in C++ STL</a>

@@ -8,15 +8,6 @@ h2 {
     text-decoration: underline;
 }
 
-img {
-    border: 1px solid;
-    height: 200px;
-    width: auto;
-    float: right;
-    margin-left: 15px;
-    margin-right: 15px;
-}
-
 job_title {
     font-weight: bold;
 }

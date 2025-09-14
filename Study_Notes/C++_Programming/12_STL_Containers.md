@@ -2124,9 +2124,719 @@ More information between the comparison of both, can refer to this <a href="http
 
 ## `Unordered Associative Containers`
 
+Unordered associative containers **implement unsorted hashed data structures** that can be quickly searched (O(1) amortized, O(n) worst-case complexity).
+
+| Container Name | Description |
+|:---:|---|
+| `std::unordered_set` | Collection of unique elements hashed by their values |
+| `std::unordered_map` | Collection of key-value pairs that are hashed by their keys where no two pairs have same keys |
+| `std::unordered_multiset` | Collection of elements hashed by their values and allows multiple copies of values |
+| `std::unoredered_multimap` | Collection of key-value pairs that are hashed by their keys where multiple pairs can have the same keys |
+
+<br>
+
+### Unordered Sets in C++ (`std::unordered_set`)
+
+In C++, `std::unordered_set` is an unordered associative container that **stores unique elements**
+
+- Unlike `std::set`, it **stores its elements using hashing** [provides the built-in implementation of <a href="https://www.geeksforgeeks.org/dsa/implementation-of-hash-table-in-c-using-separate-chaining/">hash table</a> data structure]
+
+- This provides average constant-time O(1) search, insert, and delete operations but the **elements are not sorted in any particular order**
+
+- `<unordered_set>` header is required
+
+- Syntax to declare `std::unordered_set`:
+
+    ```c++
+    std::unordered_set<data_type> varName;
+    ```
+
+<br>
+
+#### Basic Operations in `std::unordered_set`
+
+1) Inserting Elements
+
+    - You can use `insert()` function as the syntax below:
+
+    ```c++
+    unordered_set_name.insert(new_value);
+    ```
+
+    - However, we **are unable to know the position of the new element value inserted**, because it is **automatically decided by its hashed value**
+
+    - Time Complexity: O(1) (average)
+
+2) Accessing Elements
+
+    - We **cannot access elements of an unordered set by index like in an array or vector**
+
+    - Instead, we have to use increment or decrement iterator obtained from `begin()` or `end()` methods respectively to access the element by position, together with the help of `std::next()` or `std::advance()` function
+
+    - Sample code to access specific element in unordered set:
+
+    ```c++
+    #include <iostream>
+    #include <unordered_set>
+
+    int main()
+    {
+        std::unordered_set<int> us = {1,2,3,4,5};
+
+        auto it = std::next(us.begin(), 2);
+        std::cout << *it << std::endl;
+        
+        return 0;
+    }
+    ```
+
+    - Time Complexity: O(n)
+
+    - This operation might not be useful for unordered containers
+
+3) Updating Elements
+
+    - In unordered set, the **value of the elements cannot be changed after it is inserted**
+
+4) Finding Elements
+
+    - Unordered set provides fast search by value operation **using the `find()` member function**
+    
+        - This function **returns iterator to the element if found**, **otherwise returns `end()` iterator**
+    
+    - Sample code implementation using `find()` function:
+
+    ```c++
+    #include <iostream>
+    #include <unordered_set>
+
+    int main()
+    {
+        std::unordered_set<int> us = {1,2,3,4,5};
+
+        // Finding 3
+        auto it = us.find(3);
+        
+        // Syntax of find() function for set:
+        // unordered_set_name.find(value_to_find)
+
+        if (it != us.end())
+        {
+            std::cout << *it;
+        } else {
+            std::cout << "Element not found";
+        } // Print 3
+
+        return 0;
+    }
+    ```
+
+    - Time Complexity: O(1) (average)
+
+5) Traversing
+
+    - Sample code of traversing:
+
+    ```c++
+    #include <iostream>
+    #include <unordered_set>
+
+    int main()
+    {
+        std::unordered_set<int> us = {1,2,3,4,5};
+
+        for (auto x : us)
+        {
+            std::cout << x << " ";
+        }
+
+        return 0;
+    }
+    ```
+
+    - Time Complexity: O(n)
+
+6) Deleting Elements
+
+    - In set, elements are removed from a set **using the `erase()` function**
+
+    - We can erase elements either **by value or by position**
+
+    - Syntax:
+
+    ```c++
+    unordered_set_name.erase(value); // Remove by value
+
+    unordered_set_name.erase(iterator); // Remove by position
+    // iterator can be i.e. unordered_set_name.begin()
+    // To remove 1st element in set (for example)
+    ```
+
+    - Time Complexity: O(1) (average)
+
+**NOTE:** For more information on other operations in `std::unordered_set`, can refer to this <a href="https://www.geeksforgeeks.org/cpp/unordered_set-in-cpp-stl/">link</a>
+
+<br>
+
+### Unordered Map in C++ (`std::unordered_map`)
+
+In C++, unordered_map is an unordered associative container that **stores data in the form of unique key-value pairs** 
+
+- Unlike map, unordered map **stores its elements using hashing**
+    
+- This provides average constant-time complexity O(1) for search, insert, and delete operations but the **elements are not sorted in any particular order**
+
+- `<unordered_map>` header is needed
+
+- Syntax to declare `std::unordered_map`:
+
+```c++
+std::unordered_map<key_data_type, value_data_type> varName;
+```
+
+- Most features and operations are very similar to [`std::map`](#map-in-c-stdmap), except unordered map stores its elements using hashing
+
+<br>
+
+### Unordered Multiset in C++ (`std::unordered_multiset`)
+
+In C++, unordered multiset is an unordered associative container that **works similarly to an [unordered set](#unordered-sets-in-c-stdunordered_set)**, but it can **store multiple copies of the same value**.
+
+- It provides fast insert, delete and search operations using hashing, but the **elements are not in any particular order**
+
+- `<unordered_set>` is needed, just like unordered set
+
+- Syntax to declare `std::unordered_multiset`:
+
+```c++
+std::unordered_multiset<data_type> varName;
+```
+
+- Most features and operations are very similar to [`std::multiset`](#multiset-in-c-stdmultiset), except unordered map stores its elements using hashing
+
+<br>
+
+### Unordered Multimap in C++ (`std::unordered_multimap`)
+
+In C++, the unordered_multimap is an unordered associative container that **stores data in the form of key-value pairs**. 
+
+It is **similar to [unordered map](#unordered-map-in-c-stdunordered_map)**, but it **allows multiple elements with the same key**. 
+
+- It provides fast insertion, deletion and search operations in O(1) time by **using hashing**
+
+- `<unordered_map>` header is needed, just like unordered map
+
+- Syntax to declare `std::unordered_multimap`:
+
+```c++
+std::unordered_multimap<key_data_type, value_data_type> varName;
+```
+
+- Most features and operations are very similar to [`std::multimap`](#multimap-in-c-stdmultimap), except unordered map stores its elements using hashing
+
 <br>
 
 ## `Container Adapters`
+
+Container adapters **provide a different interface for other containers**. 
+
+They **adapt the behavior of underlying containers to fit specific use cases**.
+
+| Container Name | Description |
+|:---:|---|
+| `std::stack` | Adapts a container to provide stack (LIFO) data structure |
+| `std::queue` | Adapts a container to provide queue (FIFO) data structure |
+| `std::priority_queue` | Adapts a container to provide heap data structure |
+
+<br>
+
+### Stack in C++ (`std::stack`)
+
+Stack container **follows `LIFO (Last In First Out)` order of insertion and deletion**.
+
+- It means that **most recently inserted element is removed first** and the **first element will be removed last**
+
+- This is done by inserting and deleting elements at only one end of the stack which is gererally called the top of stack
+
+- `<stack>` header is needed
+
+- Syntax to declare `std::stack`:
+
+```c++
+std::stack<data_type> varName;
+```
+
+<br>
+
+#### Basic Operations in `std::stack`
+
+1) Inserting Elements
+
+    - `push()` function
+
+        - New element **can only be inserted at the `top of the stack`**
+
+        - Syntax:
+
+        ```c++
+        stack_name.push(new_value);
+        ```
+
+    - Time Complexity: O(1)
+
+2) Accessing Elements
+
+    - `top()` function:
+
+        - **Only the top element of the stack can be accessed**
+
+        - Syntax:
+
+        ```c++
+        stack_name.top(); // Use to check the topmost element in the stack
+        ```
+
+    - Time Complexity: O(1)
+
+3) Deleting Elements
+
+    - `pop()` function:
+
+        - **Only the top element of stack can be deleted**
+
+        - Syntax:
+
+        ```c++
+        stack_name.pop(); // Use to delete the topmost element in the stack
+        ```
+
+    - Time Complexity: O(1)
+
+4) Check if stack is empty
+
+    - `empty()` function:
+
+        - **Checks whether the stack is empty**
+
+        - Returns true if stack has no elements; otherwise, it returns false
+
+        - Syntax:
+
+        ```c++
+        stack_name.empty()
+        ```
+
+5) Check if size of stack
+
+    - `size()` function:
+
+        - Returns the number of elements currently in the stack
+
+        - Syntax:
+
+        ```c++
+        stack_name.size()
+        ```
+
+6) Psuedo Traversal
+
+    - As any element other than the top element cannot be accessed in the stack, it **cannot be actually traversed**
+    
+        - But we can create a copy of it, access the top element and delete the top. 
+        
+        - By doing this till the copy stack is empty, we can effectively traverse without modifying the original stack.
+
+        - Sample code of pseudo traverse a stack:
+
+        ```c++
+        #include <iostream>
+        #include <stack>
+
+        int main()
+        {
+            std::stack<int> st; // Declare a stack
+            
+            // Initialize all values needed for stack declared
+            st.push(12);
+            st.push(23);
+            st.push(10);
+
+            // Create a temporary or copy stack for pseudo traverse, since stack cannot be traversed
+            std::stack<int> temp = st;
+
+            // Pseudo traverse
+            while(!temp.empty())
+            {
+                std::cout << temp.top() << " ";
+                temp.pop();
+            } // Output ==> 10 23 12
+
+            return 0;
+        }
+        ```
+
+    - Time Complexity: O(1)
+
+<br>
+
+### Queue in C++ (`std::queue`)
+
+Queue container **follows the `FIFO (First In First Out)` order of insertion and deletion**.
+
+- The **elements that are inserted first should be removed first**
+
+- This is possible by **inserting elements at one end (called `back`)** and **deleting them from the other end (called `front`)** of the data structure
+
+- `<queue>` header is needed
+
+- Syntax to declare `std::queue`:
+
+```c++
+std::queue<data_type> varName;
+```
+
+<br>
+
+#### Basic Operations in `std::queue`
+
+1) Inserting Elements
+
+    - `push()` function:
+
+        - New elements **can only be inserted at back of the queue**
+
+        - The process of inserting elements in a queue is also called `enqueue`
+
+        - Syntax: 
+        
+        ```c++
+        queue_name.push(new_value);
+        ```
+
+        - Time Complexity: O(1)
+
+2) Accessing Elements
+
+    - `front()` function:
+
+        - Access the **first element of the queue**
+
+        - Syntax:
+
+        ```c++
+        queue_name.front()
+        ```
+
+        - Time Complexity: O(1)
+
+    - `back()` function:
+
+        - Access the **last element of the queue**
+
+        - Syntax:
+
+        ```c++
+        queue_name.back()
+        ```
+
+        - Time Complexity: O(1)
+
+3) Deleting Elements
+
+    - `pop()` function:
+
+        - Elements can only be **deleted from the front of the queue**
+
+        - This operation is also called `dequeue`
+
+        - Syntax:
+
+        ```c++
+        queue_name.pop();
+        ```
+
+        - Time Complexity: O(1)
+
+4) Check if queue is empty
+
+    - `empty()` function:
+
+        - **Checks whether the queue is empty**
+
+        - Returns true if the queue has no elements; otherwise, it returns false
+
+        - Syntax:
+
+        ```c++
+        queue_name.empty()
+        ```
+
+5) Check size of queue
+
+    - `size()` function:
+
+        - **Returns the number of elements currently in the queue**
+
+        - Syntax:
+
+        ```c++
+        queue_name.size()
+        ```
+
+6) Pseudo Traversal
+
+    - Since only the front and back element can be accessed in a queue, we **cannot directly traverse it**
+    
+    - On the other hand, we can create a copy of the queue, access the front element, and then delete it
+    
+    - By continuing this process until the copied queue is empty, we can effectively traverse all the elements of the queue
+
+    - Sample code to perform pseudo traverse:
+
+    ```c++
+    #include <iostream>
+    #include <queue>
+
+    int main()
+    {
+        std::queue<int> st; // Declare a queue
+        
+        // Initialize all values needed for queue declared
+        st.push(12);
+        st.push(23);
+        st.push(10);
+
+        // Create a temporary or copy queue for pseudo traverse, since queue cannot be traversed
+        std::queue<int> temp = st;
+
+        // Pseudo traverse
+        while(!temp.empty())
+        {
+            std::cout << temp.front() << " ";
+            temp.pop();
+        } // Output ==> 10 23 12
+
+        return 0;
+    }
+    ```
+
+    - Time Complexity: O(n)
+
+7) Swap two queues
+
+    - Syntax:
+
+    ```c++
+    queue_name1.swap(queue_name2); // Method #1
+
+    std::swap(queue_name1, queue_name2); // Method #2
+
+    // NOTE: Method #1 & Method #2 are the same
+    ```
+
+    - Time Complexity: Linear i.e. O(n)
+
+    - Auxiliary Space: O(n) because using queue
+
+<br>
+
+### Priority Queue in C++ (`std::priority_queue`)
+
+Priority queue is a type of **queue in which there is some priority assigned to the elements**.
+
+- According to this priority, elements are removed from the queue
+
+<br>
+
+**By default**, the **value of the element being inserted is considered as priority**.
+
+- Higher its value, higher its priority (by default)
+
+But this **can be changed to any desired priority** scheme as per requirement
+
+<br>
+
+**Syntax to declare `std::priority_queue`:**
+
+```c++
+std::priority_queue<T, c, comp> varName;
+
+// NOTE:
+
+// T = data type of priority queue
+
+// c = Underlying container. Uses std::vector by default
+// In another word, default value of c is std::vector<T>
+
+// comp = It is a binary predicate function that tells priority queue how to compare two elements
+// It is used to set the custom priority parameter and scheme
+// It is optional and if not provided, maximum value gets maximum priority
+// Default value of comp ==> std::less<T>
+```
+
+- `<queue>` header is needed, just like std::queue
+
+- Below are some popular example to declare priority queue:
+
+    - `Max-heap` (default behaviour):
+
+        - Prioritize on largest value
+
+        - Syntax:
+
+        ```c++
+        std::priority_queue<data_type> varName;
+
+        // Equivalent to:
+        // std::priority_queue<data_type, std::vector<data_type>, std::less<data_type>> varName;
+        ```
+
+    - `Min-heap`:
+
+        - Prioritize on smallest value
+
+        - Syntax:
+
+        ```c++
+        std::priority_queue<data_type, std::vector<data_type>, std::greater<data_type>> varName;
+        ```
+
+<br>
+
+#### Basic Operations in `std::priority_queue`
+
+1) Inserting Elements
+
+    - `push()` function:
+
+        - **Insert element in the priority queue**
+
+        - After insertion, priority queue recognize itself in such a way that **the highest priority element is always at the top**
+
+        - Syntax:
+
+        ```c++
+        priority_queue_name.push(new_value);
+        ```
+
+2) Accessing Elements
+
+    - `top()` function:
+
+        - **Only the top element (`highest priority element`) can be accessed**
+
+        - Syntax:
+
+        ```c++
+        priority_queue_name.top()
+        ```
+
+3) Deleting Elements
+
+    - **Delete the top (`highest priority element`) element**
+
+    - Syntax:
+
+    ```c++
+    priority_queue_name.pop();
+    ```
+
+4) Check if priority queue is empty
+
+    - `empty()` function:
+
+        - **Check whether the priority queue is empty**
+
+        - Returns true if the priority queue is empty; otherwise, it returns false
+
+        - Syntax:
+
+        ```c++
+        priority_queue_name.empty()
+        ```
+
+5) Check size of priority queue
+
+    - `size()` function:
+
+        - **Returns the number of elements currently in the priority queue**
+
+        - Syntax:
+
+        ```c++
+        priority_queue_name.size()
+        ```
+
+6) Pseudo Traversal
+
+    - In priority queue, we can only access top element of the priority queue, so we **cannot directly traverse it**
+
+    - However, we can create a copy of the priority queue, access and delete the top element and repeat this process until the copied priority queue is empty
+    
+    - In this way, we can effectively traverse all the elements of the priority queue
+
+    - Sample code to perform pseudo traverse:
+
+    ```c++
+    #include <iostream>
+    #include <queue>
+
+    int main()
+    {
+        std::priority_queue<int> pq; // Max heap is declared
+
+        pq.push(5);
+        pq.push(10);
+        pq.push(1);
+
+        // Max heap prioritize largest value
+        // Therefore, current arrangement of elements in pq:
+        // 10 5 1
+
+        // Create a copy priority queue for pseudo traverse
+        std::priority_queue<int> tmp = pq;
+
+        // Pseudo traversal
+        while(!tmp.empty())
+        {
+            std::cout << tmp.top() << " ";
+            tmp.pop();
+        } // Output ==> 10 5 1
+
+        return 0;
+    }
+    ```
+
+7) Swap two priority queues
+
+    - `swap()` function:
+
+        - Syntax:
+
+        ```c++
+        priority_queue_name1.swap(priority_queue_name2);
+        ```
+
+**Time Complexity of Operations:**
+
+| Operation | Time Complexity |
+|:---:|---|
+| `push()` | O(log n) |
+| `pop()` | O(log n) |
+| Find maximum element in `max heap` <br><br> or <br><br> Using `top()` function in `max heap` | O(1) |
+| Find maximum element in `min heap` <br><br> or <br><br> Using `top()` function in `min heap` | O(1) |
+ Initialize priority queue from another container | O(n) |
+
+<br>
+
+#### `std::priority_queue` vs `std::queue`
+
+| Feature | [`std::queue`](#queue-in-c-stdqueue )| `std::priority_queue` |
+|:---:|---|---|
+| Order of Removal | FIFO (First In, First Out) | Based on priority |
+| Element Priority | All elements treated equally | Each element has a priority |
+| Use Case | Task scheduling, print queue | CPU scheduling, Dijkstra's Algorithm |
+| Default Behaviour | Inserts at rear, removes front | Inserts anywhere, removes highest priority |
 
 <br>
 
@@ -2144,3 +2854,10 @@ Reference links:
 - <a href="https://www.geeksforgeeks.org/cpp/map-associative-containers-the-c-standard-template-library-stl/">`Map` in C++ STL</a>
 - <a href="https://www.geeksforgeeks.org/cpp/multiset-in-cpp-stl/">`Multiset` in C++ STL</a>
 - <a href="https://www.geeksforgeeks.org/cpp/multimap-associative-containers-the-c-standard-template-library-stl/">`Multimap` in C++ STL</a>
+- <a href="https://www.geeksforgeeks.org/cpp/unordered_set-in-cpp-stl/">`Unordered Sets` in C++ STL</a>
+- <a href="https://www.geeksforgeeks.org/cpp/unordered_map-in-cpp-stl/">`Unordered Map` in C++ STL</a>
+- <a href="https://www.geeksforgeeks.org/cpp/cpp-unordered_multiset/">`Unordered Multiset` in C++ STL</a>
+- <a href="https://www.geeksforgeeks.org/cpp/unordered_multimap-and-its-application/">`Unordered Multimap` in C++ STL</a>
+- <a href="https://www.geeksforgeeks.org/cpp/stack-in-cpp-stl/">`Stack` in C++ STL</a>
+- <a href="https://www.geeksforgeeks.org/cpp/queue-cpp-stl/">`Queue` in C++ STL</a>
+- <a href="https://www.geeksforgeeks.org/cpp/priority-queue-in-cpp-stl/">`Priority Queue` in C++ STL</a>

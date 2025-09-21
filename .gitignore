@@ -1,0 +1,3 @@
+# Ignore all visual studio or VSCode folder if using Visual Studio or VSCode for editing 
+.vs/ 
+.vscode/ 

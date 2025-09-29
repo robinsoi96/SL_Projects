@@ -78,3 +78,25 @@ Below are the most commonly used options with `cut` command:
 
 **NOTE:** <br>
 For more detailed examples, can refer to <a href="https://www.geeksforgeeks.org/linux-unix/cut-command-linux-examples/">`cut` command in Linux with examples</a>
+
+## The `find` Command
+
+`find` command is used to find the files or directory's path.
+
+Generic syntax of `find` command:
+
+```
+find <starting_directory> <option> <expression>
+```
+
+**Options that can be used with `find` command:**
+
+| Option | Usage |
+|:---:|---|
+| `-name` | For searching a file with its name |
+| `-inum` | For searching a file with particular inode number |
+| `-type` | For searching a particular type of file |
+| `-user` | For files whose owner is a particular user |
+| `-group` | For files belonging to particular group |
+
+**NOTE:** For more information, can always search on internet

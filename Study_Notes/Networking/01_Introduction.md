@@ -50,6 +50,25 @@ The basic elements of a layered model are:
 
 - `Media layers` (Bottom 3 layers) focus on **actual physical transmission** and **trasnfer data across the network**
 
+- Protocols Used in the OSI Model layers:
+
+    | OSI Model Layer | Protocol Data Unit | Protocols |
+    |:---:|:---:|---|
+    | `Physical Layer` | Bits | USB, SONET/SDH, etc |
+    | `Data Link Layer` | Frames | Ethernet, PPP, etc |
+    | `Network Layer` | Packets | IP, ICMP, IGMP, OSPF, etc |
+    | `Transport Layer` | Segments (for TCP) <br> or <br> Datagrams (for UDP) | TCP, UDP, SCTP, etc |
+    | `Session Layer` | Data | NetBIOS, RPC, PPTP, etc |
+    | `Presentation Layer` | Data | TLS/SSL, MIME, etc |
+    | `Application Layer` | Data | FTP, SMTP, DNS, DHCP, etc |
+
+
 ### Data Flow in OSI Model (between sender & receiver)
 
 <img src="./images/Data_Flow_in_OSI_Model.png" alt="Data Flow in OSI Model">
+
+## Appendix
+
+Reference link:
+
+- <a href="https://www.geeksforgeeks.org/computer-networks/open-systems-interconnection-model-osi/">What is OSI Model? - Layers of OSI Model</a>

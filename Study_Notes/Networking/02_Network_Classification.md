@@ -207,6 +207,6 @@ There are two main types:
 
 ## Appendix
 
-Reference links:
+Reference link:
 
 - <a href="https://www.geeksforgeeks.org/computer-networks/types-of-computer-networks/">Types of Computer Networks</a>

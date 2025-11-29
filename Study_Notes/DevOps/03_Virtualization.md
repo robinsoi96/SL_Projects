@@ -58,7 +58,7 @@ Before playing around with basic Vagrant command lines, do create directory for 
 
 | **Command Lines** | **Explanation / Remarks** |
 |---|---|
-| `vagrant init < BOXNAME >` | Initialize Vargant box < BOXNAME > in the current directory. For < BOXNAME >, search "Vargant Cloud" and look for the box you want to initialize. <br><br> After done initialize, you will see `Vagrantfile` created in the directory. In Vagrantfile, you will see value of `config.vm.box` is < BOXNAME >. <br> You can always update the right < BOXNAME > if needed.|
+| `vagrant init < BOXNAME >` | Initialize Vagrant box < BOXNAME > in the current directory. For < BOXNAME >, search "Vagrant Cloud" and look for the box you want to initialize. <br><br> After done initialize, you will see `Vagrantfile` created in the directory. In Vagrantfile, you will see value of `config.vm.box` is < BOXNAME >. <br> You can always update the right < BOXNAME > if needed.|
 | `vagrant up` | Creates amd configure VM according to your `Vagrantfile` <br><br> Once the VM is up, you can see the create VM is available on the Virtualbox manager GUI. |
 | `vagrant box list` | List all downloaded boxes |
 | `vagrant status` | Check the status of VM in current directory |

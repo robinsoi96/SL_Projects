@@ -35,3 +35,7 @@ Here assumes you already have Vagrant and VM provider (e.g. VMWare, VirtualBox, 
     - You can run commands in your VM once able to SSH
 
     - Type `exit` command in VM to exit SSH
+
+**EXTRAS:**
+
+- Optionally, you can use <a href="https://vagrantfile-generator.vercel.app/">Online Vagrantfile Generator</a> to provide the custom configuration and download the configured Vagrantfile online.

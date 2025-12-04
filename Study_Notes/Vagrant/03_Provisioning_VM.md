@@ -57,3 +57,7 @@
     - If VM is already up, run `vagrant reload` to restart the VM for provisioning
 
     - Given VM is up, you can run `vagrant provision`, where it will only update the new changes
+
+## Appendix
+
+For more information on provisioning, may refer to this <a href="https://developer.hashicorp.com/vagrant/docs/provisioning">document</a>
